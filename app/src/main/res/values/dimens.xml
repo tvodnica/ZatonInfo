@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splashScreenPadding">50dp</dimen>
+    <dimen name="splashWelcome">18sp</dimen>
+    <dimen name="splashGreetings">25sp</dimen>
+    <dimen name="splashHeader">45sp</dimen>
+    <dimen name="splashLoading">15sp</dimen>
+</resources>

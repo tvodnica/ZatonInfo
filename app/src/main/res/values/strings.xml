@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ZatonInfo</string>
+    <string name="hi_there">Hi there!</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="zaton">Zaton bay</string>
+    <string name="bay">bay</string>
+    <string name="loading_data">Loading, please wait...</string>
 </resources>
