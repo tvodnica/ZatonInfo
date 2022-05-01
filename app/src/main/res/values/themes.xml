@@ -15,7 +15,16 @@
     </style>
 
     <style name="Theme.SplashScreen" parent="Theme.ZatonInfo">
-       <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="actionBarStyle">@style/Theme.AppCompat.NoActionBar</item>
     </style>
+
+    <style name="Theme.ZatonInfo.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ZatonInfo.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.ZatonInfo.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
