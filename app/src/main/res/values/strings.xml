@@ -19,7 +19,8 @@
     <string name="menu_settings">Settings</string>
     <string name="menu_favorites">Favorites</string>
     <string name="menu_about">About Zaton</string>
-    <string name="menu_bus">Bus timetable</string>
+    <string name="menu_bus_timetable">Bus timetable</string>
+    <string name="menu_bus_stops">Bus stops</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="zaton_mali_bunica">Zaton Mali - Bunica</string>

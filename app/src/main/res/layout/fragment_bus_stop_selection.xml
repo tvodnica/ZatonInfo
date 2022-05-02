@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".BusStopSelectionFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select a bus stop"
+        android:layout_margin="@dimen/splashScreenPadding"
+        android:textSize="@dimen/h2"
+        android:gravity="center"/>
     <ListView
         android:id="@+id/list_busStops"
         android:layout_width="match_parent"
