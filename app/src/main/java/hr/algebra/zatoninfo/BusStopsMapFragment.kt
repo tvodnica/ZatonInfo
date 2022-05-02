@@ -73,7 +73,7 @@ class BusStopsMapFragment : Fragment() {
         googleMap.uiSettings.isMyLocationButtonEnabled = true
 
         for (pointOfInterest in pointsOfInterest) {
-            if (pointOfInterest.type == "busStop") {
+            if (pointOfInterest.type == getString(R.string.busStop)) {
                 val busStop = LatLng(pointOfInterest.lat, pointOfInterest.lon)
                 googleMap.addMarker(
                     MarkerOptions().position(busStop).title(pointOfInterest.name)
@@ -84,8 +84,7 @@ class BusStopsMapFragment : Fragment() {
         googleMap.moveCamera(
             CameraUpdateFactory.newLatLng(
                 LatLng(
-                    42.696831439426454,
-                    18.04627282636609
+                    42.69464173143508, 18.043565409578523
                 )
             )
         )

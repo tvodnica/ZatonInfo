@@ -18,7 +18,8 @@ private val CREATE = "create table $TABLE_NAME(" +
         "${PointOfInterest::type.name} text not null, " +
         "${PointOfInterest::lat.name} double not null, " +
         "${PointOfInterest::lon.name} double not null," +
-        "${PointOfInterest::pictures.name} text not null" +
+        "${PointOfInterest::pictures.name} text not null," +
+        "${PointOfInterest::favorite.name} boolean not null" +
         ")"
 
 private const val DROP = "drop table $TABLE_NAME"

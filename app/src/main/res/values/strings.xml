@@ -28,4 +28,5 @@
     <string name="zaton_veliki">Zaton Veliki</string>
     <string name="help_me_choose">Help me choose</string>
     <string name="title_activity_bus_stop_map">BusStopMapActivity</string>
+    <string name="busStop">busStop</string>
 </resources>
