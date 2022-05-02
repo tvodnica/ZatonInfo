@@ -10,14 +10,17 @@ import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.JobIntentService
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
 import kotlinx.coroutines.GlobalScope
 
+const val DATA_EXISTS = " hr.algebra.zatoninfo.data_exists"
+
+
 class SplashScreenActivity : AppCompatActivity() {
 
     private val DELAY: Long = 5000
-    private val DATA_EXISTS: String = " hr.algebra.zatoninfo.data_exists"
     private lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +28,15 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showUsername()
         showAnimations()
         redirect()
+    }
+
+    private fun showUsername() {
+        val username = PreferenceManager.getDefaultSharedPreferences(this)
+            .getString(getString(R.string.username_key), "")
+        if (username != "") binding.tvHello.text = "Hi ${username}!"
     }
 
     private fun showAnimations() {
@@ -59,26 +69,36 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
                 return
             }
-            //SKINI PODATKE
+            Intent(this, ZatonService::class.java).apply {
+                ZatonService.enqueue(this@SplashScreenActivity, this)
+            }
 
-        } else {
+        }
+        else {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
                     setTitle("No internet")
                     setMessage("Could not check for updates because there was no internet. Please enable internet next time to make sure you have the newest information.")
                     setCancelable(false)
-                    setPositiveButton("OK", null)
+                    setPositiveButton("OK") { _, _ ->
+                        sendBroadcast(
+                            Intent(
+                                this@SplashScreenActivity,
+                                ZatonReceiver::class.java
+                            )
+                        )
+                    }
                     show()
                 }
             }
             //PROVJERI VERZIJU I SKINI NOVE PODATKE AKO TREBA
+            else {
+                Intent(this, ZatonService::class.java).apply {
+                    ZatonService.enqueue(this@SplashScreenActivity, this)
+                }
+
+            }
         }
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                startActivity(Intent(this, MainActivity::class.java))
-            },
-            DELAY
-        )
     }
 
 

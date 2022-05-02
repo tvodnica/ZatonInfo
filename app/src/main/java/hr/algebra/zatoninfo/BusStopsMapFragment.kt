@@ -17,11 +17,46 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import hr.algebra.zatoninfo.api.ZatonFetcher
 import hr.algebra.zatoninfo.model.PointOfInterest
 
 class BusStopsMapFragment : Fragment() {
 
-    private val pointOfInterests = mutableListOf<PointOfInterest>()
+    private val pointsOfInterest = mutableListOf<PointOfInterest>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_bus_stops_map, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        fetchItems()
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+        mapFragment?.getMapAsync(callback)
+    }
+
+    private fun fetchItems() {
+        val cursor =
+            requireContext().contentResolver.query(ZATON_PROVIDER_URI, null, null, null, null)
+        while (cursor != null && cursor.moveToNext()) {
+            pointsOfInterest.add(
+                PointOfInterest(
+                    cursor.getLong(cursor.getColumnIndexOrThrow(PointOfInterest::_id.name)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::name.name)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::description.name)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::type.name)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(PointOfInterest::lat.name)),
+                    cursor.getDouble(cursor.getColumnIndexOrThrow(PointOfInterest::lon.name)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::pictures.name)),
+                    cursor.getInt(cursor.getColumnIndexOrThrow(PointOfInterest::favorite.name)) == 1
+                )
+            )
+        }
+    }
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -37,47 +72,23 @@ class BusStopsMapFragment : Fragment() {
         googleMap.setMinZoomPreference(10f)
         googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-        pointOfInterests.add(PointOfInterest("Bunica", "", "busStop", 42.696831439426454, 18.04627282636609))
-
-        for (pointOfInterest in pointOfInterests) {
-            if (pointOfInterest.Type == "busStop") {
-                val busStop = LatLng(pointOfInterest.Lat, pointOfInterest.Lon)
+        for (pointOfInterest in pointsOfInterest) {
+            if (pointOfInterest.type == "busStop") {
+                val busStop = LatLng(pointOfInterest.lat, pointOfInterest.lon)
                 googleMap.addMarker(
-                    MarkerOptions().position(busStop).title(pointOfInterest.Name)
-                    )
-
+                    MarkerOptions().position(busStop).title(pointOfInterest.name)
+                )
             }
         }
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(42.696831439426454, 18.04627282636609)))
+        googleMap.moveCamera(
+            CameraUpdateFactory.newLatLng(
+                LatLng(
+                    42.696831439426454,
+                    18.04627282636609
+                )
+            )
+        )
         googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
-
-
-    /*    val bunica2 = LatLng(42.696831439426454, 18.04627282636609)
-        googleMap.addMarker(
-            MarkerOptions().position(bunica2).title(getString(R.string.zaton_mali_bunica))
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(bunica2))
-
-        val babilon = LatLng(42.701630513611775, 18.04192514395971)
-        googleMap.addMarker(
-            MarkerOptions().position(babilon).title(getString(R.string.zaton_mali_babilon))
-        )
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(babilon))*/
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_bus_stops_map, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
-
     }
 }
