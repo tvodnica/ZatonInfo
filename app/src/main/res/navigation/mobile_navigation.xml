@@ -7,24 +7,34 @@
 
     <fragment
         android:id="@+id/nav_busStopChooser"
-        android:name="hr.algebra.zatoninfo.BusStopSelectionFragment"
-        android:label="@string/menu_bus_timetable"
+        android:name="hr.algebra.zatoninfo.ui.BusStopSelectionFragment"
+        android:label="@string/please_select_a_bus_stop"
         tools:layout="@layout/fragment_bus_stop_selection" >
         <action
-            android:id="@+id/busStopChooserToMap"
+            android:id="@+id/nav_busStopChooserToMap"
             app:destination="@id/nav_busStopsMap"/>
+        <action
+            android:id="@+id/nav_busStopChooserToTimetable"
+            app:destination="@id/nav_busTimetable"/>
     </fragment>
 
     <fragment
         android:id="@+id/nav_busStopsMap"
-        android:name="hr.algebra.zatoninfo.BusStopsMapFragment"
+        android:name="hr.algebra.zatoninfo.ui.BusStopsMapFragment"
         android:label="@string/menu_bus_stops"
         tools:layout="@layout/fragment_bus_stops_map">
     </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="hr.algebra.zatoninfo.SettingsFragment"
+        android:name="hr.algebra.zatoninfo.ui.SettingsFragment"
         android:label="@string/menu_settings">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_busTimetable"
+        android:name="hr.algebra.zatoninfo.ui.BusTimetableFragment"
+        android:label="@string/menu_bus_timetable"
+        tools:layout="@layout/fragment_bus_timetable">
     </fragment>
 </navigation>

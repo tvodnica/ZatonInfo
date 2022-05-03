@@ -4,19 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BusStopSelectionFragment">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Please select a bus stop"
-        android:layout_margin="@dimen/splashScreenPadding"
-        android:textSize="@dimen/h2"
-        android:gravity="center"/>
-    <ListView
-        android:id="@+id/list_busStops"
+    tools:context=".ui.BusStopSelectionFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_busStop"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"/>
+        android:layout_weight="10"
+        tools:listitem="@layout/bus_stop_item"
+        />
     <Button
         android:id="@+id/btn_helpChooseBusStop"
         android:layout_width="match_parent"

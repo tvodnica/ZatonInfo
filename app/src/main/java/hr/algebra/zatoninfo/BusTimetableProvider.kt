@@ -2,18 +2,18 @@ package hr.algebra.zatoninfo
 
 import android.content.ContentProvider
 import android.content.ContentValues
-import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import getZatonRepository
+import hr.algebra.zatoninfo.dao.BUS_TABLE_NAME
 import hr.algebra.zatoninfo.dao.POI_TABLE_NAME
 import hr.algebra.zatoninfo.dao.ZatonRepository
 
-private const val AUTHORITY = "hr.algebra.zatoninfo.api.provider.poi"
+private const val AUTHORITY = "hr.algebra.zatoninfo.api.provider.bus"
 
-val ZATON_PROVIDER_URI = Uri.parse("content://$AUTHORITY")
+val BUS_PROVIDER_URI = Uri.parse("content://$AUTHORITY")
 
-class ZatonProvider : ContentProvider() {
+class BusTimetableProvider : ContentProvider() {
 
     private lateinit var zatonRepository: ZatonRepository
 
@@ -29,7 +29,13 @@ class ZatonProvider : ContentProvider() {
         selectionArgs: Array<String>?,
         sortOrder: String?
     ): Cursor? {
-        return zatonRepository.query(POI_TABLE_NAME, projection, selection, selectionArgs, sortOrder)
+        return zatonRepository.query(
+            BUS_TABLE_NAME,
+            projection,
+            selection,
+            selectionArgs,
+            sortOrder
+        )
     }
 
     override fun getType(uri: Uri): String? {
@@ -37,12 +43,12 @@ class ZatonProvider : ContentProvider() {
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
-        zatonRepository.insert(POI_TABLE_NAME, values)
+        zatonRepository.insert(BUS_TABLE_NAME, values)
         return Uri.EMPTY
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
-        return zatonRepository.delete(POI_TABLE_NAME, selection, selectionArgs)
+        return zatonRepository.delete(BUS_TABLE_NAME, selection, selectionArgs)
     }
 
     override fun update(
@@ -51,7 +57,7 @@ class ZatonProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<String>?
     ): Int {
-        return zatonRepository.update(POI_TABLE_NAME, values, selection, selectionArgs)
+        return zatonRepository.update(BUS_TABLE_NAME, values, selection, selectionArgs)
     }
 
 

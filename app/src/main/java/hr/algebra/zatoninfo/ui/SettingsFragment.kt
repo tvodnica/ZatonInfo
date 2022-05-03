@@ -1,7 +1,8 @@
-package hr.algebra.zatoninfo
+package hr.algebra.zatoninfo.ui
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
+import hr.algebra.zatoninfo.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

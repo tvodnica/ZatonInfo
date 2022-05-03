@@ -1,19 +1,17 @@
-package hr.algebra.zatoninfo
+package hr.algebra.zatoninfo.ui
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.JobIntentService
 import androidx.preference.PreferenceManager
+import hr.algebra.zatoninfo.R
+import hr.algebra.zatoninfo.ZatonReceiver
+import hr.algebra.zatoninfo.ZatonService
 import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
-import kotlinx.coroutines.GlobalScope
 
 const val DATA_EXISTS = " hr.algebra.zatoninfo.data_exists"
 

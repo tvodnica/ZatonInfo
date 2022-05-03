@@ -12,6 +12,7 @@ class ZatonService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
         //SKINI PODATKE
         ZatonFetcher(this).fetchItems()
+        ZatonFetcher(this).fetchBusTimetable()
         SystemClock.sleep(500)
         sendBroadcast(Intent(this, ZatonReceiver::class.java))
     }

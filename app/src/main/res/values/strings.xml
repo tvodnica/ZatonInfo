@@ -29,4 +29,6 @@
     <string name="help_me_choose">Help me choose</string>
     <string name="title_activity_bus_stop_map">BusStopMapActivity</string>
     <string name="busStop">busStop</string>
+    <string name="please_select_a_bus_stop">Please select a bus stop</string>
+    <string name="FromZatonToDubrovnik">From Zaton to Dubrovnik</string>
 </resources>

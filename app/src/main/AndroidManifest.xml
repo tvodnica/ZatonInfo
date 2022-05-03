@@ -15,10 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZatonInfo">
         <provider
-            android:name=".ZatonProvider"
-            android:authorities="hr.algebra.zatoninfo.api.provider"
+            android:name=".BusTimetableProvider"
+            android:authorities="hr.algebra.zatoninfo.api.provider.bus"
             android:enabled="true"
             android:exported="false"/>
+        <provider
+            android:name=".ZatonProvider"
+            android:authorities="hr.algebra.zatoninfo.api.provider.poi"
+            android:enabled="true"
+            android:exported="false" />
 
         <service
             android:name=".ZatonService"
@@ -46,12 +51,12 @@
             android:value="AIzaSyBEuv0TMXmi4FpBW2UNtCU2iYrJ7emnFl8" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="false"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ZatonInfo.NoActionBar" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ui.SplashScreenActivity"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"
