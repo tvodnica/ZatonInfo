@@ -11,6 +11,7 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentBusStopSelectionBinding
 import hr.algebra.zatoninfo.framework.fetchItems
 import hr.algebra.zatoninfo.model.PointOfInterest
+import hr.algebra.zatoninfo.ui.adapters.BusStopItemAdapter
 
 class BusStopSelectionFragment : Fragment() {
 
@@ -37,9 +38,15 @@ class BusStopSelectionFragment : Fragment() {
         }
     }
     private fun loadList() {
+        val allBusStops = mutableListOf<PointOfInterest>()
+        pointsOfInterest.forEach {
+            if (it.type == getString(R.string.busStop)) {
+                allBusStops.add(it)
+            }
+        }
         binding.rvBusStop.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = BusStopItemAdapter(context, pointsOfInterest)
+            adapter = BusStopItemAdapter(context, allBusStops)
         }
     }
 }

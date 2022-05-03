@@ -99,10 +99,6 @@ class ZatonFetcher(private val context: Context) {
                 }
                 context.contentResolver.insert(ZATON_PROVIDER_URI, values)
             }
-            PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putBoolean(DATA_EXISTS, true)
-                .apply()
         }
     }
 

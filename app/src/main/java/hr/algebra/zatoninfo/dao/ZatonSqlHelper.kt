@@ -9,7 +9,7 @@ import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
 
 private const val DB_NAME = "ZatonInfo.db"
-private const val DB_VERSION = 1
+private const val DB_VERSION = 2
 public const val POI_TABLE_NAME = "PointOfInterest"
 public const val BUS_TABLE_NAME = "BusTimetable"
 

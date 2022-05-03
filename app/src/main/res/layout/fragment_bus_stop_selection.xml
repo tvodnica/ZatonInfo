@@ -17,7 +17,8 @@
         android:id="@+id/btn_helpChooseBusStop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/splashScreenPadding"
+        android:layout_marginHorizontal="@dimen/splashScreenPadding"
+        android:layout_marginVertical="@dimen/listItemPadding"
         android:text="@string/help_me_choose"/>
 
 

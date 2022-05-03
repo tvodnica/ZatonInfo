@@ -8,8 +8,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Zaton info app</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Zaton Bay</string>
+    <string name="nav_header_subtitle">Dubrovnik, Croatia</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -28,7 +28,15 @@
     <string name="zaton_veliki">Zaton Veliki</string>
     <string name="help_me_choose">Help me choose</string>
     <string name="title_activity_bus_stop_map">BusStopMapActivity</string>
-    <string name="busStop">busStop</string>
+    <string name="busStop">Bus stop</string>
     <string name="please_select_a_bus_stop">Please select a bus stop</string>
     <string name="FromZatonToDubrovnik">From Zaton to Dubrovnik</string>
+    <string name="busInformation">Bus information</string>
+    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine "</string>
+    <string name="ok">OK</string>
+    <string name="no_internet">No internet</string>
+    <string name="internet_message_first_time">Internet is required for first time use. Please enable internet on your device to download information.</string>
+    <string name="internet_message_update">Could not check for updates because there was no internet. Please enable internet next time to make sure you have the newest information.</string>
+    <string name="interestType">InterestType</string>
+    <string name="error">Error</string>
 </resources>

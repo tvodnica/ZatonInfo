@@ -59,10 +59,10 @@ class SplashScreenActivity : AppCompatActivity() {
         if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(DATA_EXISTS, false)) {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
-                    setTitle("No internet")
-                    setMessage("Internet is required for first time use. Please enable internet on your device to download information.")
+                    setTitle(R.string.no_internet)
+                    setMessage(R.string.internet_message_first_time)
                     setCancelable(false)
-                    setPositiveButton("OK") { _, _ -> redirect() }
+                    setPositiveButton(R.string.ok) { _, _ -> redirect() }
                     show()
                 }
                 return
@@ -75,10 +75,10 @@ class SplashScreenActivity : AppCompatActivity() {
         else {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
-                    setTitle("No internet")
-                    setMessage("Could not check for updates because there was no internet. Please enable internet next time to make sure you have the newest information.")
+                    setTitle(R.string.no_internet)
+                    setMessage(R.string.internet_message_update)
                     setCancelable(false)
-                    setPositiveButton("OK") { _, _ ->
+                    setPositiveButton(R.string.ok) { _, _ ->
                         sendBroadcast(
                             Intent(
                                 this@SplashScreenActivity,

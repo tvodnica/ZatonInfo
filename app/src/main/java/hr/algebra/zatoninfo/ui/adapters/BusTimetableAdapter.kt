@@ -1,11 +1,10 @@
-package hr.algebra.zatoninfo.ui
+package hr.algebra.zatoninfo.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.model.BusTimetableItem
@@ -33,7 +32,7 @@ class BusTimetableAdapter(
             .from(parent.context).inflate(R.layout.bus_timetable_item, parent, false)
     )
 
-    override fun onBindViewHolder(holder: BusTimetableAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
     }
 

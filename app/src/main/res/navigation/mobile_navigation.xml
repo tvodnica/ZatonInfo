@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_busStopChooser">
+    app:startDestination="@+id/nav_interests">
 
     <fragment
         android:id="@+id/nav_busStopChooser"
@@ -22,19 +22,33 @@
         android:id="@+id/nav_busStopsMap"
         android:name="hr.algebra.zatoninfo.ui.BusStopsMapFragment"
         android:label="@string/menu_bus_stops"
-        tools:layout="@layout/fragment_bus_stops_map">
-    </fragment>
+        tools:layout="@layout/fragment_bus_stops_map"/>
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="hr.algebra.zatoninfo.ui.SettingsFragment"
-        android:label="@string/menu_settings">
-    </fragment>
+        android:label="@string/menu_settings"/>
 
     <fragment
         android:id="@+id/nav_busTimetable"
         android:name="hr.algebra.zatoninfo.ui.BusTimetableFragment"
         android:label="@string/menu_bus_timetable"
-        tools:layout="@layout/fragment_bus_timetable">
+        tools:layout="@layout/fragment_bus_timetable"/>
+
+    <fragment
+        android:id="@+id/nav_interests"
+        android:name="hr.algebra.zatoninfo.ui.InterestsFragment"
+        android:label="@string/menu_interests"
+        tools:layout="@layout/fragment_interests">
+        <action
+            android:id="@+id/nav_allInterestsToSpecificOne"
+            app:destination="@id/nav_specific_interests"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_specific_interests"
+        android:name="hr.algebra.zatoninfo.ui.SpecificInterestsFragment"
+        android:label="@string/menu_interests"
+        tools:layout="@layout/fragment_specific_interests"/>
+
 </navigation>

@@ -1,4 +1,4 @@
-package hr.algebra.zatoninfo.ui
+package hr.algebra.zatoninfo.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.model.PointOfInterest
@@ -35,9 +34,7 @@ class BusStopItemAdapter(
             Navigation.findNavController(it).navigate(R.id.nav_busStopChooserToTimetable)
         }
         val item = items[position]
-        if (item.type == context.getString(R.string.busStop)) {
-            holder.bind(item)
-        }
+        holder.bind(item)
     }
 
     override fun getItemCount() = items.size
