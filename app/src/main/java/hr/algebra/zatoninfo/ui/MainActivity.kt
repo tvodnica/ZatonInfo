@@ -1,17 +1,19 @@
 package hr.algebra.zatoninfo.ui
 
+import android.R.menu
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.navigation.NavigationView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_interests,R.id.nav_settings, R.id.nav_busStopChooser, R.id.nav_slideshow
+                R.id.nav_interests, R.id.nav_map, R.id.nav_settings, R.id.nav_busStopChooser, R.id.nav_favorites
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
+        menu.setGroupVisible(R.id.main_menu_group, false)
         return true
     }
 
@@ -52,4 +55,5 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }

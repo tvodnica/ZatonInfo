@@ -49,6 +49,27 @@
         android:id="@+id/nav_specific_interests"
         android:name="hr.algebra.zatoninfo.ui.SpecificInterestsFragment"
         android:label="@string/menu_interests"
-        tools:layout="@layout/fragment_specific_interests"/>
+        tools:layout="@layout/fragment_specific_interests">
+        <action android:id="@+id/nav_poiToPoiDetails"
+            app:destination="@id/nav_poiDetails"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="hr.algebra.zatoninfo.ui.MapFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_map"/>
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="hr.algebra.zatoninfo.ui.FavoritesFragment"
+        android:label="@string/menu_favorites"
+        tools:layout="@layout/fragment_favorites"/>
+
+    <fragment
+        android:id="@+id/nav_poiDetails"
+        android:name="hr.algebra.zatoninfo.ui.PoiDetailsFragment"
+        android:label="@string/menu_interests"
+        tools:layout="@layout/fragment_poi_details"/>
 
 </navigation>

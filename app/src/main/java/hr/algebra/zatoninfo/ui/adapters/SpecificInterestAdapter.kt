@@ -29,7 +29,7 @@ class SpecificInterestAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            //Navigation.findNavController(it).navigate(R.id.nav_busStopChooserToTimetable)
+            Navigation.findNavController(it).navigate(R.id.nav_poiToPoiDetails)
         }
         val item = items[position]
         holder.bind(item)
