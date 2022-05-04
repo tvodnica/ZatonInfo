@@ -41,4 +41,6 @@
     <string name="error">Error</string>
     <string name="filter">Filter</string>
     <string name="cancel">Cancel</string>
+    <string name="locate_me">Locate me</string>
+    <string name="noGpsErrorMessage">Location services are disabled. Please enable location services on your device to see your location on the map.</string>
 </resources>

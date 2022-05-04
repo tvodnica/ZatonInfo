@@ -1,7 +1,9 @@
 package hr.algebra.zatoninfo.framework
 
 import android.content.Context
+import android.location.LocationManager
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
@@ -43,4 +45,12 @@ fun Context.fetchBusTimetable(): MutableList<BusTimetableItem> {
         )
     }
     return busTimetable
+}
+
+fun Context.isGpsEnabled(): Boolean {
+
+    val locationManager =
+        getSystemService(AppCompatActivity.LOCATION_SERVICE) as LocationManager
+
+    return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }

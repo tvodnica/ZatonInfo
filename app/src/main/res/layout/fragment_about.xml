@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AboutFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/listItemPadding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zaton Bay"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="@dimen/h1"
+        android:padding="@dimen/listItemPadding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/h2"
+        android:padding="@dimen/listItemPadding"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zaton is a beautiful seafront village located 10km northwest from Dubrovnik. Translated to Croatian it's name means 'bay', so the bay is literally called 'Bay'."
+        android:gravity="center"
+        android:textSize="@dimen/h3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Three villages"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/h2"
+        android:padding="@dimen/listItemPadding"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Zaton consists of three parts - Zaton veliki, Zaton Mali and Štikovica. \n 'Veliki' means big and 'Mali' means small, however the Zaton Veliki's bay is actually smaller than the bay in Zaton Mali."
+        android:gravity="center"
+        android:textSize="@dimen/h3"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/h2"
+        android:padding="@dimen/listItemPadding"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation."
+        android:gravity="center"
+        android:textSize="@dimen/h3"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@color/blue"
+        android:paddingTop="@dimen/listItemPadding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/h2"
+        android:padding="@dimen/listItemPadding"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation."
+        android:gravity="center"
+        android:textSize="@dimen/h3"/>
+    </LinearLayout>
+</ScrollView>
