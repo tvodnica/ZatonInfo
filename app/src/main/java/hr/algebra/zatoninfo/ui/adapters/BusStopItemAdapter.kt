@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.model.PointOfInterest
@@ -31,6 +32,10 @@ class BusStopItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
+                            R.string.selectedBusStopDirection), items[position].description).apply()
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
+                            R.string.selectedBusStopName), items[position].name).apply()
             Navigation.findNavController(it).navigate(R.id.nav_busStopChooserToTimetable)
         }
         val item = items[position]

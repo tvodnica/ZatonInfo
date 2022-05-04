@@ -40,7 +40,8 @@ fun Context.fetchBusTimetable(): MutableList<BusTimetableItem> {
                 cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busNumber.name)),
                 cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::time.name)),
                 cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::notice.name)),
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::direction.name))
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::direction.name)),
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busStop.name))
             )
         )
     }

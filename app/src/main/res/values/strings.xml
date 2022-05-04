@@ -43,4 +43,6 @@
     <string name="cancel">Cancel</string>
     <string name="locate_me">Locate me</string>
     <string name="noGpsErrorMessage">Location services are disabled. Please enable location services on your device to see your location on the map.</string>
+    <string name="selectedBusStopDirection">selectedBusStopDirection</string>
+    <string name="selectedBusStopName">selectedBusStopName</string>
 </resources>

@@ -77,6 +77,7 @@ class ZatonFetcher(private val context: Context) {
                     put(BusTimetableItem::time.name, it.time)
                     put(BusTimetableItem::notice.name, it.notice)
                     put(BusTimetableItem::direction.name, it.direction)
+                    put(BusTimetableItem::busStop.name, it.busStop)
                 }
                 context.contentResolver.insert(BUS_PROVIDER_URI, values)
             }

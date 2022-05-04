@@ -29,7 +29,8 @@ private val CREATE_TABLE_BUS =
         "${BusTimetableItem::busNumber.name} text not null," +
         "${BusTimetableItem::time.name} text not null," +
         "${BusTimetableItem::notice.name} text not null," +
-        "${BusTimetableItem::direction.name} text not null" +
+        "${BusTimetableItem::direction.name} text not null," +
+        "${BusTimetableItem::busStop.name} text not null" +
         ")"
 
 
