@@ -39,4 +39,6 @@
     <string name="internet_message_update">Could not check for updates because there was no internet. Please enable internet next time to make sure you have the newest information.</string>
     <string name="interestType">InterestType</string>
     <string name="error">Error</string>
+    <string name="filter">Filter</string>
+    <string name="cancel">Cancel</string>
 </resources>

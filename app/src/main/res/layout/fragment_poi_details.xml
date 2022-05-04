@@ -33,13 +33,15 @@
             android:padding="@dimen/listItemPadding"
             android:text="@string/internet_message_first_time"
             android:textColor="@color/black"
-
             android:textSize="@dimen/h3" />
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/poiDetails_map"
+        <fragment
+            android:id="@+id/map_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            tools:context=".ui.MapFragment" />
 
     </LinearLayout>
 
