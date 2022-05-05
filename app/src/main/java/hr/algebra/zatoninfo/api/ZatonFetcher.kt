@@ -2,10 +2,12 @@ package hr.algebra.zatoninfo.api
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
+import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
@@ -22,6 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ZatonFetcher(private val context: Context) {
 
     private var zatonApi: ZatonApi
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
     init {
         val retrofit = Retrofit.Builder()
@@ -29,6 +32,12 @@ class ZatonFetcher(private val context: Context) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         zatonApi = retrofit.create(ZatonApi::class.java)
+
+        prefs
+            .edit()
+            .putBoolean(BUS_DATA_EXISTS, false)
+            .putBoolean(POI_DATA_EXISTS, false)
+            .apply()
     }
 
     fun fetchItems() {
@@ -80,10 +89,12 @@ class ZatonFetcher(private val context: Context) {
                 }
                 context.contentResolver.insert(BUS_PROVIDER_URI, values)
             }
-            PreferenceManager.getDefaultSharedPreferences(context)
+            prefs
                 .edit()
                 .putBoolean(BUS_DATA_EXISTS, true)
                 .apply()
+
+            redirectIfDone()
         }
     }
 
@@ -113,10 +124,20 @@ class ZatonFetcher(private val context: Context) {
                 context.contentResolver.insert(ZATON_PROVIDER_URI, values)
                 i = 1
             }
-            PreferenceManager.getDefaultSharedPreferences(context)
+            prefs
                 .edit()
                 .putBoolean(POI_DATA_EXISTS, true)
                 .apply()
+
+            redirectIfDone()
+        }
+    }
+
+    private fun redirectIfDone() {
+        if (prefs.getBoolean(POI_DATA_EXISTS, false) &&
+            prefs.getBoolean(BUS_DATA_EXISTS, false)
+        ) {
+            context.sendBroadcast(Intent(context, ZatonReceiver::class.java))
         }
     }
 

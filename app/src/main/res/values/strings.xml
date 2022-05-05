@@ -49,4 +49,5 @@
     <string name="trip">Trip</string>
     <string name="contactEmail">tomo.vodnica@gmail.com</string>
     <string name="enquiryFor">ZatonInfo - enquiry for </string>
+    <string name="whatsappNotInstalled">WhatsApp is not installed on your device.</string>
 </resources>

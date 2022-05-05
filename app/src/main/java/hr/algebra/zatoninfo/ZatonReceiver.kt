@@ -8,6 +8,10 @@ import hr.algebra.zatoninfo.ui.MainActivity
 class ZatonReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-       context.startActivity(Intent(context, MainActivity::class.java))
+       context.startActivity(
+           Intent(context, MainActivity::class.java).apply {
+               addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+           }
+       )
     }
 }

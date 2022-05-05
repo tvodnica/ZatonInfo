@@ -8,10 +8,8 @@ import hr.algebra.zatoninfo.api.ZatonFetcher
 class ZatonService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
-
         ZatonFetcher(this).fetchItems()
         ZatonFetcher(this).fetchBusTimetable()
-        sendBroadcast(Intent(this, ZatonReceiver::class.java))
     }
 
 

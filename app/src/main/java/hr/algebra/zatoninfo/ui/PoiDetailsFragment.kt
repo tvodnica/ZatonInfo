@@ -102,10 +102,7 @@ class PoiDetailsFragment : Fragment() {
             0 -> Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:" + getString(R.string.contactEmail))
                 putExtra(Intent.EXTRA_SUBJECT, getString(R.string.enquiryFor) + it.name)
-
-                if (resolveActivity(requireContext().packageManager) != null) {
-                    startActivity(this)
-                }
+                startActivity(this)
             }
             //PHONE
             1 -> startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "00385913628422")))
@@ -121,7 +118,7 @@ class PoiDetailsFragment : Fragment() {
                 } catch (ex: ActivityNotFoundException) {
                     Toast.makeText(
                         requireContext(),
-                        "WhatsApp is not installed on you device.",
+                        getString(R.string.whatsappNotInstalled),
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -146,9 +143,9 @@ class PoiDetailsFragment : Fragment() {
                         R.drawable.ic_menu_favorite
                     )?.constantState
                 ) {
-                    item.setIcon(getDrawable(requireContext(), R.drawable.ic_menu_favorite))
+                    item.icon = getDrawable(requireContext(), R.drawable.ic_menu_favorite)
                 } else {
-                    item.setIcon(R.drawable.ic_menu_not_favorite)
+                    item.icon = getDrawable(requireContext(), R.drawable.ic_menu_not_favorite)
                 }
             }
         }
