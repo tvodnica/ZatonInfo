@@ -13,7 +13,8 @@ import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.ZatonService
 import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
 
-const val DATA_EXISTS = " hr.algebra.zatoninfo.data_exists"
+const val POI_DATA_EXISTS = " hr.algebra.zatoninfo.poi_data_exists"
+const val BUS_DATA_EXISTS = " hr.algebra.zatoninfo.bus_data_exists"
 
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -56,7 +57,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun redirect() {
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(DATA_EXISTS, false)) {
+        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(POI_DATA_EXISTS, false) ||
+            !PreferenceManager.getDefaultSharedPreferences(this).getBoolean(BUS_DATA_EXISTS, false)) {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
                     setTitle(R.string.no_internet)
@@ -70,7 +72,6 @@ class SplashScreenActivity : AppCompatActivity() {
             Intent(this, ZatonService::class.java).apply {
                 ZatonService.enqueue(this@SplashScreenActivity, this)
             }
-
         }
         else {
             if (!hasInternetAccess()) {
@@ -89,12 +90,10 @@ class SplashScreenActivity : AppCompatActivity() {
                     show()
                 }
             }
-            //PROVJERI VERZIJU I SKINI NOVE PODATKE AKO TREBA
             else {
                 Intent(this, ZatonService::class.java).apply {
                     ZatonService.enqueue(this@SplashScreenActivity, this)
                 }
-
             }
         }
     }

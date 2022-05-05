@@ -203,6 +203,11 @@ class MapFragment : Fragment() {
                     // permission was granted, yay!
                     hasPermission = true
                     updateMap()
+                    Toast.makeText(
+                        requireContext(),
+                        "You can now use the location button to see your location on the map.",
+                        Toast.LENGTH_LONG
+                    ).show()
 
                 } else {
                     // permission denied, boo!

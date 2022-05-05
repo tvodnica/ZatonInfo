@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.model.PointOfInterest
 
-class SpecificInterestAdapter(
+class TripsAdapter(
     private val context: Context,
     private val items: MutableList<PointOfInterest>
-) : RecyclerView.Adapter<SpecificInterestAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TripsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val tv_interest = itemView.findViewById<TextView>(R.id.tv_interest)
@@ -32,7 +32,7 @@ class SpecificInterestAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             PreferenceManager.getDefaultSharedPreferences(context).edit().putLong(context.getString(R.string.selectedInterest), items[position]._id).apply()
-            Navigation.findNavController(it).navigate(R.id.nav_poiToPoiDetails)
+            Navigation.findNavController(it).navigate(R.id.nav_tripsToPoiDetails)
         }
         val item = items[position]
         holder.bind(item)

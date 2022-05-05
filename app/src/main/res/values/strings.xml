@@ -32,7 +32,7 @@
     <string name="please_select_a_bus_stop">Please select a bus stop</string>
     <string name="FromZatonToDubrovnik">From Zaton to Dubrovnik</string>
     <string name="busInformation">Bus information</string>
-    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine "</string>
+    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine"</string>
     <string name="ok">OK</string>
     <string name="no_internet">No internet</string>
     <string name="internet_message_first_time">Internet is required for first time use. Please enable internet on your device to download information.</string>
@@ -45,4 +45,8 @@
     <string name="noGpsErrorMessage">Location services are disabled. Please enable location services on your device to see your location on the map.</string>
     <string name="selectedBusStopDirection">selectedBusStopDirection</string>
     <string name="selectedBusStopName">selectedBusStopName</string>
+    <string name="selectedInterest">selectedInterest</string>
+    <string name="trip">Trip</string>
+    <string name="contactEmail">tomo.vodnica@gmail.com</string>
+    <string name="enquiryFor">ZatonInfo - enquiry for </string>
 </resources>

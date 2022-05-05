@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable-anydpi/ic_menu_help.xml" value="0.2275" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable-anydpi/ic_menu_notFavorite.xml" value="0.196" />
+        <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable-anydpi/ic_menu_question_mark.xml" value="0.2275" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable-anydpi/ic_menu_settings.xml" value="0.196" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable/borderbottom.xml" value="0.2275" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.196" />
@@ -17,12 +18,13 @@
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_about.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_bus_stop_selection.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_bus_stops_map.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_bus_timetable.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_bus_timetable.xml" value="0.5656984785615491" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_favorites.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_interests.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_map.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_poi_details.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_specific_interests.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/fragment_trips.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/interests_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Korisnik/AndroidStudioProjects/ZatonInfo/app/src/main/res/menu/activity_main_drawer.xml" value="0.36666666666666664" />

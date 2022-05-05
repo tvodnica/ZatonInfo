@@ -1,6 +1,6 @@
 package hr.algebra.zatoninfo.model
 
-import com.google.android.gms.maps.model.LatLng
+import java.io.File
 
 class PointOfInterest(
 
@@ -10,7 +10,7 @@ class PointOfInterest(
     val type: String,
     val lat: Double,
     val lon: Double,
-    val pictures: String,
+    val pictures: List<String>,
     val favorite: Boolean
 
 ) {

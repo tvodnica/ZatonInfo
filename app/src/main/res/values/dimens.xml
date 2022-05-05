@@ -13,7 +13,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="listItemPadding">15dp</dimen>
     <dimen name="h4">12sp</dimen>
-    <dimen name="h3">14sp</dimen>
+    <dimen name="h3">16sp</dimen>
     <dimen name="h2">18sp</dimen>
     <dimen name="h1">25sp</dimen>
 </resources>

@@ -9,5 +9,5 @@ data class ApiPointOfInterest (
     @SerializedName("type") val type : String,
     @SerializedName("lat") val lat : Double,
     @SerializedName("lon") val lon : Double,
-    @SerializedName("pictures") val pictures : String
+    @SerializedName("pictures") val picturesPaths : String
 )

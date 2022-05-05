@@ -5,11 +5,12 @@ import android.content.Context
 import android.util.Log
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
-import hr.algebra.zatoninfo.ui.DATA_EXISTS
-import hr.algebra.zatoninfo.ui.SplashScreenActivity
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
+import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
+import hr.algebra.zatoninfo.ui.BUS_DATA_EXISTS
+import hr.algebra.zatoninfo.ui.POI_DATA_EXISTS
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -17,8 +18,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.FileReader
-import java.io.InputStream
 
 class ZatonFetcher(private val context: Context) {
 
@@ -81,6 +80,10 @@ class ZatonFetcher(private val context: Context) {
                 }
                 context.contentResolver.insert(BUS_PROVIDER_URI, values)
             }
+            PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(BUS_DATA_EXISTS, true)
+                .apply()
         }
     }
 
@@ -89,17 +92,31 @@ class ZatonFetcher(private val context: Context) {
             context.contentResolver.delete(ZATON_PROVIDER_URI, null, null)
             apiPointsOfInterest.forEach {
 
+                var localPicturesPaths: String = ""
+                var i: Int = 1
+
+                it.picturesPaths.split("\n").forEach { picturePath ->
+                    localPicturesPaths += downloadImageAndStore(context, picturePath, it.name + i)
+                    localPicturesPaths += "\n"
+                    i++
+                }
+
                 val values = ContentValues().apply {
                     put(PointOfInterest::name.name, it.name)
                     put(PointOfInterest::description.name, it.description)
                     put(PointOfInterest::type.name, it.type)
                     put(PointOfInterest::lat.name, it.lat)
                     put(PointOfInterest::lon.name, it.lon)
-                    put(PointOfInterest::pictures.name, it.pictures)
+                    put(PointOfInterest::pictures.name, localPicturesPaths)
                     put(PointOfInterest::favorite.name, false)
                 }
                 context.contentResolver.insert(ZATON_PROVIDER_URI, values)
+                i = 1
             }
+            PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(POI_DATA_EXISTS, true)
+                .apply()
         }
     }
 

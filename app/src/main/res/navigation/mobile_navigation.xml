@@ -78,4 +78,13 @@
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about"/>
 
+    <fragment
+        android:id="@+id/nav_trips"
+        android:name="hr.algebra.zatoninfo.ui.TripsFragment"
+        android:label="@string/menu_trips"
+        tools:layout="@layout/fragment_trips">
+        <action android:id="@+id/nav_tripsToPoiDetails"
+            app:destination="@id/nav_poiDetails"/>
+    </fragment>
+
 </navigation>
