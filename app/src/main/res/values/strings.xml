@@ -50,4 +50,8 @@
     <string name="contactEmail">tomo.vodnica@gmail.com</string>
     <string name="enquiryFor">ZatonInfo - enquiry for </string>
     <string name="whatsappNotInstalled">WhatsApp is not installed on your device.</string>
+    <string name="setYourUsername">Set your username</string>
+    <string name="book_enquire">Book / Enquire</string>
+    <string name="pointsOfInterest">pointsOfInterest</string>
+    <string name="busTimetable">busTimetable</string>
 </resources>

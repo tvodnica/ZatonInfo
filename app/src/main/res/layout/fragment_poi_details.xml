@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/splashScreenPadding"
             android:layout_marginVertical="@dimen/listItemPadding"
-            android:text="Book / Enquire" />
+            android:text="@string/book_enquire" />
 
         <LinearLayout
             android:id="@+id/ll_imageHolder"

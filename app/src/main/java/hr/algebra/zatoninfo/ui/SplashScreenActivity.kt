@@ -12,6 +12,8 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.ZatonService
 import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
+import hr.algebra.zatoninfo.framework.Preferences
+import hr.algebra.zatoninfo.framework.hasInternetAccess
 
 const val POI_DATA_EXISTS = " hr.algebra.zatoninfo.poi_data_exists"
 const val BUS_DATA_EXISTS = " hr.algebra.zatoninfo.bus_data_exists"
@@ -19,7 +21,6 @@ const val BUS_DATA_EXISTS = " hr.algebra.zatoninfo.bus_data_exists"
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    private val DELAY: Long = 5000
     private lateinit var binding: ActivitySplashScreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,8 +58,9 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun redirect() {
-        if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(POI_DATA_EXISTS, false) ||
-            !PreferenceManager.getDefaultSharedPreferences(this).getBoolean(BUS_DATA_EXISTS, false)) {
+        if (!Preferences().getBoolean(POI_DATA_EXISTS, false) ||
+            !Preferences().getBoolean(BUS_DATA_EXISTS, false)
+        ) {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
                     setTitle(R.string.no_internet)
@@ -69,11 +71,7 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
                 return
             }
-            Intent(this, ZatonService::class.java).apply {
-                ZatonService.enqueue(this@SplashScreenActivity, this)
-            }
-        }
-        else {
+        } else {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {
                     setTitle(R.string.no_internet)
@@ -89,27 +87,12 @@ class SplashScreenActivity : AppCompatActivity() {
                     }
                     show()
                 }
+                return
             }
-            else {
-                Intent(this, ZatonService::class.java).apply {
-                    ZatonService.enqueue(this@SplashScreenActivity, this)
-                }
-            }
+        }
+        Intent(this, ZatonService::class.java).apply {
+            ZatonService.enqueue(this@SplashScreenActivity, this)
         }
     }
 
-
-    private fun hasInternetAccess(): Boolean {
-
-        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val network = connectivityManager.activeNetwork ?: return false
-        val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
-
-        return when {
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            else -> false
-        }
-    }
 }

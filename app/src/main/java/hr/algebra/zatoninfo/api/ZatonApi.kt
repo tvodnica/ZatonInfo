@@ -1,5 +1,6 @@
 package hr.algebra.zatoninfo.api
 
+import hr.algebra.zatoninfo.model.Versions
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -11,4 +12,7 @@ interface ZatonApi {
 
     @GET("Uyq0wn19")
     fun fetchBusTimetable() : Call<List<ApiBusTimetableItem>>
+
+    @GET("MCHydEhY")
+    fun fetchVersions() : Call<List<ApiVersions>>
 }

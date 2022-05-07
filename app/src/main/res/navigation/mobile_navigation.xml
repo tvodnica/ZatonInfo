@@ -9,31 +9,31 @@
         android:id="@+id/nav_busStopChooser"
         android:name="hr.algebra.zatoninfo.ui.BusStopSelectionFragment"
         android:label="@string/please_select_a_bus_stop"
-        tools:layout="@layout/fragment_bus_stop_selection" >
+        tools:layout="@layout/fragment_bus_stop_selection">
         <action
             android:id="@+id/nav_busStopChooserToMap"
-            app:destination="@id/nav_busStopsMap"/>
+            app:destination="@id/nav_busStopsMap" />
         <action
             android:id="@+id/nav_busStopChooserToTimetable"
-            app:destination="@id/nav_busTimetable"/>
+            app:destination="@id/nav_busTimetable" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_busStopsMap"
         android:name="hr.algebra.zatoninfo.ui.BusStopsMapFragment"
         android:label="@string/menu_bus_stops"
-        tools:layout="@layout/fragment_bus_stops_map"/>
+        tools:layout="@layout/fragment_bus_stops_map" />
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="hr.algebra.zatoninfo.ui.SettingsFragment"
-        android:label="@string/menu_settings"/>
+        android:label="@string/menu_settings" />
 
     <fragment
         android:id="@+id/nav_busTimetable"
         android:name="hr.algebra.zatoninfo.ui.BusTimetableFragment"
         android:label="@string/menu_bus_timetable"
-        tools:layout="@layout/fragment_bus_timetable"/>
+        tools:layout="@layout/fragment_bus_timetable" />
 
     <fragment
         android:id="@+id/nav_interests"
@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_interests">
         <action
             android:id="@+id/nav_allInterestsToSpecificOne"
-            app:destination="@id/nav_specific_interests"/>
+            app:destination="@id/nav_specific_interests" />
     </fragment>
 
     <fragment
@@ -50,41 +50,47 @@
         android:name="hr.algebra.zatoninfo.ui.SpecificInterestsFragment"
         android:label="@string/menu_interests"
         tools:layout="@layout/fragment_specific_interests">
-        <action android:id="@+id/nav_poiToPoiDetails"
-            app:destination="@id/nav_poiDetails"/>
+        <action
+            android:id="@+id/nav_poiToPoiDetails"
+            app:destination="@id/nav_poiDetails" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_map"
         android:name="hr.algebra.zatoninfo.ui.MapFragment"
         android:label="@string/menu_map"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/nav_favorites"
         android:name="hr.algebra.zatoninfo.ui.FavoritesFragment"
         android:label="@string/menu_favorites"
-        tools:layout="@layout/fragment_favorites"/>
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/nav_poiToPoiDetails"
+            app:destination="@id/nav_poiDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_poiDetails"
         android:name="hr.algebra.zatoninfo.ui.PoiDetailsFragment"
         android:label="@string/menu_interests"
-        tools:layout="@layout/fragment_poi_details"/>
+        tools:layout="@layout/fragment_poi_details" />
 
     <fragment
         android:id="@+id/nav_about"
         android:name="hr.algebra.zatoninfo.ui.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout="@layout/fragment_about"/>
+        tools:layout="@layout/fragment_about" />
 
     <fragment
         android:id="@+id/nav_trips"
         android:name="hr.algebra.zatoninfo.ui.TripsFragment"
         android:label="@string/menu_trips"
         tools:layout="@layout/fragment_trips">
-        <action android:id="@+id/nav_tripsToPoiDetails"
-            app:destination="@id/nav_poiDetails"/>
+        <action
+            android:id="@+id/nav_tripsToPoiDetails"
+            app:destination="@id/nav_poiDetails" />
     </fragment>
 
 </navigation>

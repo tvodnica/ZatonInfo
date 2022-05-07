@@ -3,7 +3,10 @@ package hr.algebra.zatoninfo.framework
 import android.content.Context
 import android.database.Cursor
 import android.location.LocationManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
@@ -109,3 +112,19 @@ fun Context.isGpsEnabled(): Boolean {
 
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
+
+fun Context.hasInternetAccess(): Boolean {
+
+    val connectivityManager = getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+    val network = connectivityManager.activeNetwork ?: return false
+    val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+
+    return when {
+        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+        activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+        else -> false
+    }
+}
+
+fun Context.Preferences() = PreferenceManager.getDefaultSharedPreferences(this)

@@ -1,8 +1,6 @@
 package hr.algebra.zatoninfo.model
 
-import java.io.File
-
-class PointOfInterest(
+data class PointOfInterest(
 
     val _id: Long,
     val name: String,
@@ -11,7 +9,7 @@ class PointOfInterest(
     val lat: Double,
     val lon: Double,
     val pictures: List<String>,
-    val favorite: Boolean
+    var favorite: Boolean
 
 ) {
 }

@@ -11,7 +11,7 @@ import hr.algebra.zatoninfo.dao.ZatonRepository
 
 private const val AUTHORITY = "hr.algebra.zatoninfo.api.provider.bus"
 
-val BUS_PROVIDER_URI = Uri.parse("content://$AUTHORITY")
+val BUS_PROVIDER_URI: Uri = Uri.parse("content://$AUTHORITY")
 
 class BusTimetableProvider : ContentProvider() {
 

@@ -2,6 +2,8 @@ package hr.algebra.zatoninfo.ui
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.ContentUris
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.squareup.picasso.Picasso
 import hr.algebra.zatoninfo.R
+import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.databinding.FragmentPoiDetailsBinding
 import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
 import hr.algebra.zatoninfo.model.PointOfInterest
@@ -28,6 +31,7 @@ import java.io.File
 class PoiDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentPoiDetailsBinding
+    private lateinit var selectedPoi: PointOfInterest
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,62 +39,71 @@ class PoiDetailsFragment : Fragment() {
     ): View? {
         binding = FragmentPoiDetailsBinding.inflate(layoutInflater, container, false)
         loadData()
+        bindData()
         return binding.root
     }
 
     private fun loadData() {
         val allPois = requireContext().fetchAllPointsOfInterest()
-        val selectedInterest = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val selectedPoiPref = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getLong(requireContext().getString(R.string.selectedInterest), 0)
+
         allPois.forEach {
-            if (it._id == selectedInterest) {
-                binding.tvTitle.text = it.name
-                binding.tvType.text = it.type
-                binding.tvDescription.text = it.description
+            if (it._id == selectedPoiPref) {
+                selectedPoi = it
+            }
+        }
+    }
 
-                binding.btnBook.isVisible = it.type == getString(R.string.trip)
-                binding.mapHolder.isVisible = it.type != getString(R.string.trip)
+    private fun bindData() {
+        selectedPoi.apply {
+            binding.tvTitle.text = name
+            binding.tvType.text = type
+            binding.tvDescription.text = description
 
-                val mapFragment =
-                    childFragmentManager.findFragmentById(R.id.map_specificPoi) as SupportMapFragment?
-                mapFragment?.getMapAsync { map ->
-                    map.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(it.lat, it.lon))
-                    )
-                    map.setMinZoomPreference(15f)
-                    map.moveCamera(CameraUpdateFactory.newLatLng(LatLng(it.lat, it.lon)))
-                    map.moveCamera(CameraUpdateFactory.zoomTo(15f))
-                }
+            binding.btnBook.isVisible = type == getString(R.string.trip)
+            binding.mapHolder.isVisible = type != getString(R.string.trip)
 
-                it.pictures.forEach { picture ->
-
-                    val image = ImageView(context).apply {
-                        Picasso.get()
-                            .load(File(picture))
-                            .into(this)
-                        layoutParams = ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.MATCH_PARENT
-                        )
-                    }
-                    binding.llImageHolder.addView(image)
-                }
+            val mapFragment =
+                childFragmentManager.findFragmentById(R.id.map_specificPoi) as SupportMapFragment?
+            mapFragment?.getMapAsync { map ->
+                map.addMarker(
+                    MarkerOptions()
+                        .position(LatLng(lat, lon))
+                )
+                map.setMinZoomPreference(15f)
+                map.moveCamera(CameraUpdateFactory.newLatLng(LatLng(lat, lon)))
+                map.moveCamera(CameraUpdateFactory.zoomTo(15f))
             }
 
-            binding.btnBook.setOnClickListener { btn ->
-                AlertDialog.Builder(requireContext()).apply {
+            pictures.forEach { picture ->
 
-                    setTitle("Send an enquiry")
-                    setItems(
-                        arrayOf(
-                            "E-mail",
-                            "Phone",
-                            "WhatsApp"
-                        )
-                    ) { _, which -> sendEnquiry(which, it) }
-                    setNegativeButton(getString(R.string.cancel), null)
-                    show()
+                val image = ImageView(context).apply {
+                    Picasso.get()
+                        .load(File(picture))
+                        .into(this)
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                }
+                binding.llImageHolder.addView(image)
+
+
+                binding.btnBook.setOnClickListener { btn ->
+                    AlertDialog.Builder(requireContext()).apply {
+
+                        setTitle("Send an enquiry")
+                        setItems(
+                            arrayOf(
+                                "E-mail",
+                                "Phone",
+                                "WhatsApp"
+                            )
+                        ) { _, which -> sendEnquiry(which, selectedPoi) }
+                        setNegativeButton(getString(R.string.cancel), null)
+                        show()
+                    }
                 }
             }
         }
@@ -133,24 +146,29 @@ class PoiDetailsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main, menu)
         super.onCreateOptionsMenu(menu, inflater)
+        // Ovo ne radi i ne znam zašto, predugo tražim rješenje, odustajem
+        menu.findItem(R.id.action_favorite).icon =
+            if (selectedPoi.favorite) getDrawable(requireContext(), R.drawable.ic_menu_favorite)
+            else getDrawable(requireContext(), R.drawable.ic_menu_not_favorite)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
             R.id.action_favorite -> {
-                if (item.icon.constantState != getDrawable(
-                        requireContext(),
-                        R.drawable.ic_menu_favorite
-                    )?.constantState
-                ) {
+                selectedPoi.favorite = !selectedPoi.favorite
+                if (selectedPoi.favorite) {
                     item.icon = getDrawable(requireContext(), R.drawable.ic_menu_favorite)
                 } else {
                     item.icon = getDrawable(requireContext(), R.drawable.ic_menu_not_favorite)
                 }
+                val values = ContentValues().apply {
+                    put(PointOfInterest::favorite.name, selectedPoi.favorite)
+                }
+                val uri = ContentUris.withAppendedId(ZATON_PROVIDER_URI, selectedPoi._id)
+                requireContext().contentResolver.update(uri, values, null, null)
             }
         }
         return super.onOptionsItemSelected(item)
-
     }
-
 }
