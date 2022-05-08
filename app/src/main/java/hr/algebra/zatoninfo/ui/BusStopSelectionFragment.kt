@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentBusStopSelectionBinding
-import hr.algebra.zatoninfo.framework.fetchItems
+import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.adapters.BusStopItemAdapter
+import hr.algebra.zatoninfo.adapters.BusStopItemAdapter
 
 class BusStopSelectionFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class BusStopSelectionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentBusStopSelectionBinding.inflate(layoutInflater, container, false)
-        pointsOfInterest = requireContext().fetchItems()
+        pointsOfInterest = requireContext().fetchPoisWithoutActivities()
 
         loadList()
         setupListeners()

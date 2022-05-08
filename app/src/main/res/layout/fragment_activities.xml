@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.TripsFragment"
+    tools:context=".ui.ActivitiesFragment"
     tools:listitem="@layout/interests_item"
     android:id="@+id/rv_trips">
 

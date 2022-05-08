@@ -12,7 +12,7 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentBusTimetableBinding
 import hr.algebra.zatoninfo.framework.fetchBusTimetable
 import hr.algebra.zatoninfo.model.BusTimetableItem
-import hr.algebra.zatoninfo.ui.adapters.BusTimetableAdapter
+import hr.algebra.zatoninfo.adapters.BusTimetableAdapter
 
 class BusTimetableFragment : Fragment() {
 

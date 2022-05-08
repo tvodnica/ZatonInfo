@@ -1,18 +1,14 @@
-package hr.algebra.zatoninfo.ui.adapters
+package hr.algebra.zatoninfo.adapters
 
 import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentViewHolder
 import hr.algebra.zatoninfo.R
-import hr.algebra.zatoninfo.model.PointOfInterest
 
 class InterestsAdapter(
     private val context: Context,

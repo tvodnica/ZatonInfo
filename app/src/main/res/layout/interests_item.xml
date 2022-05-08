@@ -11,6 +11,7 @@
         android:padding="@dimen/listItemPadding"
         tools:text="@string/zaton_mali_bunica"
         android:background="@drawable/borderbottom"
+        android:textColor="@color/black"
         android:textSize="@dimen/h2"/>
 
 

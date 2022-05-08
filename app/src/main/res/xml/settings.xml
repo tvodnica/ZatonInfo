@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditTextPreference
         android:key="@string/username_key"
-        android:title="@string/username_key"
         android:summary="@string/setYourUsername"
+        android:title="@string/username_key" />
+
+    <EditTextPreference
+        android:key="@string/leave_a_comment_key"
+        android:summary="@string/settingsComment"
+        android:title="@string/leave_a_comment_key" />
+
+    <Preference
+        android:key="@string/rate_us"
+        android:summary="Leave a review on Google Play"
+        android:title="@string/rate_us"
         />
 
 </PreferenceScreen>

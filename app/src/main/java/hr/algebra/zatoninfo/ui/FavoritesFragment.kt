@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentFavoritesBinding
-import hr.algebra.zatoninfo.framework.fetchItems
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.adapters.SpecificInterestAdapter
+import hr.algebra.zatoninfo.adapters.SpecificInterestAdapter
+import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
 
 class FavoritesFragment : Fragment() {
 
-    private var allPointsOfInterest = mutableListOf<PointOfInterest>()
+    private var allPoisWithoutTrips = mutableListOf<PointOfInterest>()
+    private var allTrips = mutableListOf<PointOfInterest>()
     private lateinit var binding: FragmentFavoritesBinding
 
     override fun onCreateView(
@@ -28,7 +28,7 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun loadList() {
-        allPointsOfInterest = requireContext().fetchItems()
+        val allPointsOfInterest = requireContext().fetchAllPointsOfInterest()
         val favoritePois = mutableListOf<PointOfInterest>()
         allPointsOfInterest.forEach {
             if (it.favorite) {

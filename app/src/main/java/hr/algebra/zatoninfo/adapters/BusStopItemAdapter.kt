@@ -1,4 +1,4 @@
-package hr.algebra.zatoninfo.ui.adapters
+package hr.algebra.zatoninfo.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

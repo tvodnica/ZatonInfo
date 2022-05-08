@@ -12,6 +12,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.app.ActivityCompat.invalidateOptionsMenu
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -61,8 +62,8 @@ class PoiDetailsFragment : Fragment() {
             binding.tvType.text = type
             binding.tvDescription.text = description
 
-            binding.btnBook.isVisible = type == getString(R.string.trip)
-            binding.mapHolder.isVisible = type != getString(R.string.trip)
+            binding.btnBook.isVisible = type == getString(R.string.activity)
+            binding.mapHolder.isVisible = type != getString(R.string.activity)
 
             val mapFragment =
                 childFragmentManager.findFragmentById(R.id.map_specificPoi) as SupportMapFragment?
@@ -86,6 +87,7 @@ class PoiDetailsFragment : Fragment() {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
+                    adjustViewBounds = true
                 }
                 binding.llImageHolder.addView(image)
 
@@ -93,7 +95,7 @@ class PoiDetailsFragment : Fragment() {
                 binding.btnBook.setOnClickListener { btn ->
                     AlertDialog.Builder(requireContext()).apply {
 
-                        setTitle("Send an enquiry")
+                        setTitle(getString(R.string.sendAnEnquiry))
                         setItems(
                             arrayOf(
                                 "E-mail",
@@ -115,15 +117,16 @@ class PoiDetailsFragment : Fragment() {
             0 -> Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:" + getString(R.string.contactEmail))
                 putExtra(Intent.EXTRA_SUBJECT, getString(R.string.enquiryFor) + it.name)
-                startActivity(this)
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.iAmInterestedAbout))
+                startActivity(Intent.createChooser(this, getString(R.string.sendAnEmail)))
             }
             //PHONE
-            1 -> startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "00385913628422")))
+            1 -> startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + getString(R.string.contactPhoneNumber))))
             //WHATSAPP
             2 ->
                 try {
                     Intent(Intent.ACTION_SENDTO).apply {
-                        putExtra(Intent.EXTRA_TEXT, "Hi! I am interested about " + it.name)
+                        putExtra(Intent.EXTRA_TEXT, getString(R.string.iAmInterestedAbout) + it.name)
                         type = "text/plain"
                         setPackage("com.whatsapp")
                         startActivity(this)
@@ -135,6 +138,7 @@ class PoiDetailsFragment : Fragment() {
                         Toast.LENGTH_LONG
                     ).show()
                 }
+
         }
     }
 
@@ -144,12 +148,12 @@ class PoiDetailsFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main, menu)
         super.onCreateOptionsMenu(menu, inflater)
         // Ovo ne radi i ne znam zašto, predugo tražim rješenje, odustajem
         menu.findItem(R.id.action_favorite).icon =
             if (selectedPoi.favorite) getDrawable(requireContext(), R.drawable.ic_menu_favorite)
             else getDrawable(requireContext(), R.drawable.ic_menu_not_favorite)
+        inflater.inflate(R.menu.main, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

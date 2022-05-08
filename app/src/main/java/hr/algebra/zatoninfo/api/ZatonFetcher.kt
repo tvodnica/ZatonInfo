@@ -6,11 +6,9 @@ import android.content.Intent
 import android.util.Log
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
-import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.ZatonReceiver
-import hr.algebra.zatoninfo.framework.fetchItems
-import hr.algebra.zatoninfo.framework.fetchTrips
+import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
 import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
@@ -66,20 +64,15 @@ class ZatonFetcher(private val context: Context) {
 
     private fun populateItems(apiPointsOfInterest: List<ApiPointOfInterest>) {
         GlobalScope.launch {
+
             val favorites = mutableListOf<String>()
-            context.fetchItems().forEach {
+            context.fetchAllPointsOfInterest().forEach {
                 if (it.favorite) favorites.add(it.name)
-            }
-            context.fetchItems().forEach {
                 it.pictures.forEach { picturePath ->
                     File(picturePath).delete()
                 }
             }
-            context.fetchTrips().forEach {
-                it.pictures.forEach { picturePath ->
-                    File(picturePath).delete()
-                }
-            }
+
             context.contentResolver.delete(ZATON_PROVIDER_URI, null, null)
             apiPointsOfInterest.forEach {
 

@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/h2"
+            android:textColor="@color/black"
             tools:text="15" />
 
         <TextView
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="@dimen/h2"
+            android:textColor="@color/black"
             android:text="09:47" />
 
         <TextView
@@ -33,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:textSize="@dimen/h3"
+            android:textColor="@color/black"
             android:text="Not on Sunday and holiday" />
 
     </LinearLayout>

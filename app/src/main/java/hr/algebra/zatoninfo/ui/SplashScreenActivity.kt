@@ -1,8 +1,6 @@
 package hr.algebra.zatoninfo.ui
 
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AnimationUtils
@@ -12,7 +10,7 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.ZatonService
 import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
-import hr.algebra.zatoninfo.framework.Preferences
+import hr.algebra.zatoninfo.framework.preferences
 import hr.algebra.zatoninfo.framework.hasInternetAccess
 
 const val POI_DATA_EXISTS = " hr.algebra.zatoninfo.poi_data_exists"
@@ -58,8 +56,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun redirect() {
-        if (!Preferences().getBoolean(POI_DATA_EXISTS, false) ||
-            !Preferences().getBoolean(BUS_DATA_EXISTS, false)
+        if (!preferences().getBoolean(POI_DATA_EXISTS, false) ||
+            !preferences().getBoolean(BUS_DATA_EXISTS, false)
         ) {
             if (!hasInternetAccess()) {
                 AlertDialog.Builder(this).apply {

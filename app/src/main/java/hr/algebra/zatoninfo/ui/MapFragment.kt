@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.GoogleMap
@@ -21,8 +23,8 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentMapBinding
-import hr.algebra.zatoninfo.framework.fetchItems
-import hr.algebra.zatoninfo.framework.isGpsEnabled
+import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
+import hr.algebra.zatoninfo.framework.showErrorIfGpsDisabled
 import hr.algebra.zatoninfo.model.PointOfInterest
 
 class MapFragment : Fragment() {
@@ -60,7 +62,7 @@ class MapFragment : Fragment() {
     }
 
     private fun loadAndPrepareData() {
-        allPointsOfInterest = requireContext().fetchItems()
+        allPointsOfInterest = requireContext().fetchPoisWithoutActivities()
         allPointsOfInterest.forEach {
             poisToShowOnMap.add(it)
         }
@@ -106,9 +108,7 @@ class MapFragment : Fragment() {
     }
 
     private fun updateMap() {
-
         poisToShowOnMap.clear()
-
         val poiTypesToShow = mutableListOf<String>()
         for ((index, value) in allPoiTypes.withIndex()) {
             if (checkedItems[index]) {
@@ -133,14 +133,7 @@ class MapFragment : Fragment() {
         }
 
         googleMap.setOnMyLocationButtonClickListener {
-            if (!requireContext().isGpsEnabled()) {
-                AlertDialog.Builder(requireContext()).apply {
-                    setTitle(R.string.error)
-                    setMessage(getString(R.string.noGpsErrorMessage))
-                    setPositiveButton(R.string.ok, null)
-                    show()
-                }
-            }
+            requireContext().showErrorIfGpsDisabled()
             false
         }
 
@@ -153,7 +146,7 @@ class MapFragment : Fragment() {
                 )
             )
         )
-        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(14f))
     }
 
     private fun loadPoiMarkers(googleMap: GoogleMap) {
@@ -170,8 +163,15 @@ class MapFragment : Fragment() {
                     .title(poi.name)
                     .snippet(poi.type)
             )
-            allMarkers.add(marker!!)
+            marker!!.tag = poi._id
+            allMarkers.add(marker)
+            googleMap.setOnInfoWindowClickListener {
+                val poi_id = it.tag!!.toString().toLong()
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putLong(requireContext().getString(R.string.selectedInterest), poi_id).apply()
+                Navigation.findNavController(requireView()).navigate(R.id.nav_mapToPoiDetails)
+            }
         }
+
     }
 
     private fun checkLocationPermission() {

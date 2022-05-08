@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_interests">
+    app:startDestination="@+id/nav_welcome">
 
     <fragment
         android:id="@+id/nav_busStopChooser"
@@ -22,7 +22,11 @@
         android:id="@+id/nav_busStopsMap"
         android:name="hr.algebra.zatoninfo.ui.BusStopsMapFragment"
         android:label="@string/menu_bus_stops"
-        tools:layout="@layout/fragment_bus_stops_map" />
+        tools:layout="@layout/fragment_bus_stops_map">
+        <action
+            android:id="@+id/nav_busStopMapToTimetable"
+            app:destination="@id/nav_busTimetable" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
@@ -59,7 +63,11 @@
         android:id="@+id/nav_map"
         android:name="hr.algebra.zatoninfo.ui.MapFragment"
         android:label="@string/menu_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/nav_mapToPoiDetails"
+            app:destination="@id/nav_poiDetails" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_favorites"
@@ -84,13 +92,19 @@
         tools:layout="@layout/fragment_about" />
 
     <fragment
-        android:id="@+id/nav_trips"
-        android:name="hr.algebra.zatoninfo.ui.TripsFragment"
-        android:label="@string/menu_trips"
-        tools:layout="@layout/fragment_trips">
+        android:id="@+id/nav_activities"
+        android:name="hr.algebra.zatoninfo.ui.ActivitiesFragment"
+        android:label="@string/menu_activities"
+        tools:layout="@layout/fragment_activities">
         <action
             android:id="@+id/nav_tripsToPoiDetails"
             app:destination="@id/nav_poiDetails" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_welcome"
+        android:name="hr.algebra.zatoninfo.ui.WelcomeFragment"
+        android:label="@string/menu_welcome"
+        tools:layout="@layout/fragment_welcome" />
 
 </navigation>

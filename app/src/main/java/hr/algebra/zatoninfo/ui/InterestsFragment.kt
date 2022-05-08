@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentInterestsBinding
-import hr.algebra.zatoninfo.framework.fetchItems
+import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.adapters.InterestsAdapter
+import hr.algebra.zatoninfo.adapters.InterestsAdapter
 
 class InterestsFragment : Fragment() {
 
@@ -22,7 +20,7 @@ class InterestsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentInterestsBinding.inflate(layoutInflater, container, false)
-        allPointsOfInterest = requireContext().fetchItems()
+        allPointsOfInterest = requireContext().fetchPoisWithoutActivities()
         loadList()
         return binding.root
     }

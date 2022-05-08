@@ -9,16 +9,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import hr.algebra.zatoninfo.R
-import hr.algebra.zatoninfo.framework.fetchItems
-import hr.algebra.zatoninfo.framework.isGpsEnabled
+import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
+import hr.algebra.zatoninfo.framework.showErrorIfGpsDisabled
 import hr.algebra.zatoninfo.model.PointOfInterest
 
 class BusStopsMapFragment : Fragment() {
@@ -38,26 +39,41 @@ class BusStopsMapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pointsOfInterest = requireContext().fetchItems()
+        pointsOfInterest = requireContext().fetchPoisWithoutActivities()
         getAndLoadMap()
     }
-
 
     private val callback = OnMapReadyCallback { googleMap ->
 
         googleMap.setMinZoomPreference(10f)
         googleMap.uiSettings.isMyLocationButtonEnabled = true
 
-        for (pointOfInterest in pointsOfInterest) {
-            if (pointOfInterest.type == getString(R.string.busStop)) {
-                val busStop = LatLng(pointOfInterest.lat, pointOfInterest.lon)
-                googleMap.addMarker(
+        for (poi in pointsOfInterest) {
+            if (poi.type == getString(R.string.busStop)) {
+                val busStop = LatLng(poi.lat, poi.lon)
+                val marker = googleMap.addMarker(
                     MarkerOptions()
                         .position(busStop)
-                        .title(pointOfInterest.name)
-                        .snippet(pointOfInterest.description)
+                        .title(poi.name)
+                        .snippet(poi.description)
                 )
+                marker!!.tag = poi
             }
+
+        }
+        googleMap.setOnInfoWindowClickListener {
+            val poi = it.tag as PointOfInterest
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(
+                requireContext().getString(
+                    R.string.selectedBusStopDirection
+                ), poi.description
+            ).apply()
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(
+                requireContext().getString(
+                    R.string.selectedBusStopName
+                ), poi.name
+            ).apply()
+            Navigation.findNavController(requireView()).navigate(R.id.nav_busStopMapToTimetable)
         }
 
         if (hasPermission) {
@@ -65,14 +81,7 @@ class BusStopsMapFragment : Fragment() {
         }
 
         googleMap.setOnMyLocationButtonClickListener {
-            if (!requireContext().isGpsEnabled()) {
-                AlertDialog.Builder(requireContext()).apply {
-                    setTitle(R.string.error)
-                    setMessage(getString(R.string.noGpsErrorMessage))
-                    setPositiveButton(R.string.ok, null)
-                    show()
-                }
-            }
+            requireContext().showErrorIfGpsDisabled()
             false
         }
 

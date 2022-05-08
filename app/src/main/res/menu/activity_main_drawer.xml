@@ -17,9 +17,9 @@
             android:icon="@drawable/ic_menu_bus"
             android:title="@string/menu_bus_timetable" />
         <item
-            android:id="@+id/nav_trips"
+            android:id="@+id/nav_activities"
             android:icon="@drawable/ic_menu_trips"
-            android:title="@string/menu_trips" />
+            android:title="@string/menu_activities" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_about"

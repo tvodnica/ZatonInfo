@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
@@ -14,7 +15,7 @@ import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
 
 
-fun Context.fetchItems(): MutableList<PointOfInterest> {
+fun Context.fetchPoisWithoutActivities(): MutableList<PointOfInterest> {
 
     val pointsOfInterest = mutableListOf<PointOfInterest>()
     val cursor = contentResolver?.query(ZATON_PROVIDER_URI, null, null, null, null)
@@ -22,7 +23,7 @@ fun Context.fetchItems(): MutableList<PointOfInterest> {
     while (cursor != null && cursor.moveToNext()) {
 
         if (cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::type.name)) != getString(
-                R.string.trip
+                R.string.activity
             )
         ) {
             loadPoiData(cursor, pointsOfInterest)
@@ -31,7 +32,7 @@ fun Context.fetchItems(): MutableList<PointOfInterest> {
     return pointsOfInterest
 }
 
-fun Context.fetchTrips(): MutableList<PointOfInterest> {
+fun Context.fetchActivities(): MutableList<PointOfInterest> {
 
     val pointsOfInterest = mutableListOf<PointOfInterest>()
     val cursor = contentResolver?.query(ZATON_PROVIDER_URI, null, null, null, null)
@@ -39,7 +40,7 @@ fun Context.fetchTrips(): MutableList<PointOfInterest> {
     while (cursor != null && cursor.moveToNext()) {
 
         if (cursor.getString(cursor.getColumnIndexOrThrow(PointOfInterest::type.name)) == getString(
-                R.string.trip
+                R.string.activity
             )
         ) {
             loadPoiData(cursor, pointsOfInterest)
@@ -52,10 +53,10 @@ fun Context.fetchAllPointsOfInterest(): MutableList<PointOfInterest> {
 
     val allPointsOfInterest = mutableListOf<PointOfInterest>()
 
-    fetchItems().forEach {
+    fetchPoisWithoutActivities().forEach {
         allPointsOfInterest.add(it)
     }
-    fetchTrips().forEach {
+    fetchActivities().forEach {
         allPointsOfInterest.add(it)
     }
 
@@ -127,4 +128,15 @@ fun Context.hasInternetAccess(): Boolean {
     }
 }
 
-fun Context.Preferences() = PreferenceManager.getDefaultSharedPreferences(this)
+fun Context.preferences() = PreferenceManager.getDefaultSharedPreferences(this)
+
+fun Context.showErrorIfGpsDisabled(){
+    if (!isGpsEnabled()) {
+        AlertDialog.Builder(this).apply {
+            setTitle(R.string.error)
+            setMessage(getString(R.string.noGpsErrorMessage))
+            setPositiveButton(R.string.ok, null)
+            show()
+        }
+    }
+}

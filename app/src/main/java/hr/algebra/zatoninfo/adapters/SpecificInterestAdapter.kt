@@ -1,11 +1,10 @@
-package hr.algebra.zatoninfo.ui.adapters
+package hr.algebra.zatoninfo.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.res.TypedArrayUtils
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView

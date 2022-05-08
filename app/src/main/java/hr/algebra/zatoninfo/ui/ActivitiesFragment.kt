@@ -6,17 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import hr.algebra.zatoninfo.R
-import hr.algebra.zatoninfo.databinding.FragmentTripsBinding
-import hr.algebra.zatoninfo.framework.fetchItems
-import hr.algebra.zatoninfo.framework.fetchTrips
+import hr.algebra.zatoninfo.framework.fetchActivities
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.adapters.SpecificInterestAdapter
-import hr.algebra.zatoninfo.ui.adapters.TripsAdapter
+import hr.algebra.zatoninfo.adapters.TripsAdapter
+import hr.algebra.zatoninfo.databinding.FragmentActivitiesBinding
 
-class TripsFragment : Fragment() {
+class ActivitiesFragment : Fragment() {
 
-    private lateinit var binding: FragmentTripsBinding
+    private lateinit var binding: FragmentActivitiesBinding
     private lateinit var allTrips: MutableList<PointOfInterest>
 
     override fun onCreateView(
@@ -24,7 +21,7 @@ class TripsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentTripsBinding.inflate(layoutInflater, container,false)
+        binding = FragmentActivitiesBinding.inflate(layoutInflater, container,false)
 
         loadAndPrepareData()
         loadList()
@@ -33,7 +30,7 @@ class TripsFragment : Fragment() {
     }
 
     private fun loadAndPrepareData() {
-        allTrips = requireContext().fetchTrips()
+        allTrips = requireContext().fetchActivities()
     }
 
     private fun loadList() {
