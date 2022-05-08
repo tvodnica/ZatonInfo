@@ -1,6 +1,7 @@
 package hr.algebra.zatoninfo.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
@@ -73,7 +74,7 @@ class BusStopsMapFragment : Fragment() {
                     R.string.selectedBusStopName
                 ), poi.name
             ).apply()
-            Navigation.findNavController(requireView()).navigate(R.id.nav_busStopMapToTimetable)
+            startActivity(Intent(requireContext(), BusTimetableActivity::class.java))
         }
 
         if (hasPermission) {

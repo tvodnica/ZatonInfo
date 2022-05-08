@@ -1,15 +1,16 @@
 package hr.algebra.zatoninfo.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.model.PointOfInterest
+import hr.algebra.zatoninfo.ui.BusTimetableActivity
 
 class BusStopItemAdapter(
     private val context: Context,
@@ -33,10 +34,10 @@ class BusStopItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
-                            R.string.selectedBusStopDirection), items[position].description).apply()
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
                             R.string.selectedBusStopName), items[position].name).apply()
-            Navigation.findNavController(it).navigate(R.id.nav_busStopChooserToTimetable)
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
+                            R.string.selectedBusStopDirection), items[position].description).apply()
+            context.startActivity(Intent(context, BusTimetableActivity::class.java))
         }
         val item = items[position]
         holder.bind(item)

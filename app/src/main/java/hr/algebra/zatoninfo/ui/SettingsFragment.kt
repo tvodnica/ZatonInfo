@@ -33,13 +33,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         // The flow has finished. The API does not indicate whether the user
                         // reviewed or not, or even whether the review dialog was shown. Thus, no
                         // matter the result, we continue our app flow.
-                        Toast.makeText(requireContext(), "Sve 5!", Toast.LENGTH_SHORT).show()
 
                     }
                 } else {
                     // There was some problem, log or handle the error code.
                     //@ReviewErrorCode val reviewErrorCode = (task.getException() as TaskException).errorCode
-                    Toast.makeText(requireContext(), "Greška", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error), Toast.LENGTH_SHORT).show()
                 }
             }
 

@@ -14,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZatonInfo">
+        <activity
+            android:name=".ui.BusTimetableActivity"
+            android:exported="false"
+            android:label="@string/title_activity_bus_timetable"
+            android:theme="@style/Theme.ZatonInfo.NoActionBar"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

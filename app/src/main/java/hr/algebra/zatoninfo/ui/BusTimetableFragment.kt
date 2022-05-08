@@ -14,7 +14,7 @@ import hr.algebra.zatoninfo.framework.fetchBusTimetable
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.adapters.BusTimetableAdapter
 
-class BusTimetableFragment : Fragment() {
+class BusTimetableFragment(private val startingDestination: Boolean) : Fragment() {
 
     private lateinit var binding: FragmentBusTimetableBinding
     private var busTimetable = mutableListOf<BusTimetableItem>()
@@ -28,35 +28,35 @@ class BusTimetableFragment : Fragment() {
         binding = FragmentBusTimetableBinding.inflate(layoutInflater, container, false)
         loadAndPrepareData()
         loadList()
-        setupListeners()
         return binding.root
     }
 
     private fun loadAndPrepareData() {
+
         busTimetable = requireContext().fetchBusTimetable()
+
         val selectedBusStopName = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(getString(R.string.selectedBusStopName), "")
         val selectedBusStopDirection = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(getString(R.string.selectedBusStopDirection), "")
+
         busTimetable.forEach {
-            if (it.direction == selectedBusStopDirection && it.busStop == selectedBusStopName){
+            if (it.busStop == selectedBusStopName && it.direction == selectedBusStopDirection){
                 selectedBusStopTimetable.add(it)
             }
         }
-    }
 
-    private fun setupListeners() {
-        binding.fabInfo.setOnClickListener {
-            AlertDialog.Builder(context).apply {
-                setTitle(context.getString(R.string.busInformation))
-                setMessage(context.getString(R.string.allBusDestinationsInfo))
-                setPositiveButton(context.getString(R.string.ok), null)
-                show()
+        if(startingDestination){
+            selectedBusStopTimetable.clear()
+            busTimetable.forEach {
+                if (it.busStop == getString(R.string.startingPoint) && it.direction == selectedBusStopDirection){
+                    selectedBusStopTimetable.add(it)
+                }
             }
         }
+
     }
 
     private fun loadList() {
         binding.rvBusTimetable.apply {
-            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = BusTimetableAdapter(requireContext(), selectedBusStopTimetable)
         }

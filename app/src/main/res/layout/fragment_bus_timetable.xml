@@ -48,16 +48,4 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/h3"
-        android:src="@drawable/ic_menu_question_mark"
-        app:tint="@color/white"
-        app:maxImageSize="46dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="@color/red"
-        app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

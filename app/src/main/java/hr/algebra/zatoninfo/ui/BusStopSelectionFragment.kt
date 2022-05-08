@@ -1,5 +1,6 @@
 package hr.algebra.zatoninfo.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,9 +35,10 @@ class BusStopSelectionFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnHelpChooseBusStop.setOnClickListener {
-           findNavController().navigate(R.id.nav_busStopChooserToMap)
+            findNavController().navigate(R.id.nav_busStopChooserToMap)
         }
     }
+
     private fun loadList() {
         val allBusStops = mutableListOf<PointOfInterest>()
         pointsOfInterest.forEach {

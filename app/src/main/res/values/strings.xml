@@ -37,7 +37,7 @@
     <string name="please_select_a_bus_stop">Please select a bus stop</string>
     <string name="FromZatonToDubrovnik">From Zaton to Dubrovnik</string>
     <string name="busInformation">Bus information</string>
-    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine"</string>
+    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine\n\nNone of the buses depart from Zaton, so "</string>
 
 
     <string name="error">Error</string>
@@ -75,5 +75,9 @@
 
     <string name="setYourUsername">Set your username</string>
     <string name="settingsComment">Found a bug? Have a suggestion? Let us know!</string>
+
+    <string name="title_activity_bus_timetable">Bus timetable</string>
+    <string name="thisBusStop">This bus stop</string>
+    <string name="startingPoint">Starting point</string>
 
 </resources>
