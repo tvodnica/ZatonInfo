@@ -1,16 +1,11 @@
 package hr.algebra.zatoninfo.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.testing.FakeReviewManager
 import hr.algebra.zatoninfo.R
-import hr.algebra.zatoninfo.framework.preferences
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

@@ -94,5 +94,7 @@
     <string name="history">History</string>
     <string name="history_text">First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation.</string>
     <string name="contactPhoneNumberNoZeros">385913628422</string>
+    <string name="poi_version">poi_version</string>
+    <string name="bus_version">bus_version</string>
 
 </resources>

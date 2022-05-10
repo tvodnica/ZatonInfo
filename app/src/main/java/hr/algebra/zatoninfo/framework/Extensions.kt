@@ -128,7 +128,7 @@ fun Context.hasInternetAccess(): Boolean {
     }
 }
 
-fun Context.preferences() = PreferenceManager.getDefaultSharedPreferences(this)
+fun Context.getPreferences() = PreferenceManager.getDefaultSharedPreferences(this)
 
 fun Context.showErrorIfGpsDisabled(){
     if (!isGpsEnabled()) {

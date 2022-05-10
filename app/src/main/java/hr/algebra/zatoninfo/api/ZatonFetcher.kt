@@ -3,9 +3,11 @@ package hr.algebra.zatoninfo.api
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.os.SystemClock
 import android.util.Log
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
+import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
@@ -28,6 +30,10 @@ class ZatonFetcher(private val context: Context) {
 
     private var zatonApi: ZatonApi
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    var newPoiVersionAvailable = true
+    var newBusVersionAvailable = true
+    var finishedCheckingVersion = false
+
 
     init {
         val retrofit = Retrofit.Builder()
@@ -36,10 +42,9 @@ class ZatonFetcher(private val context: Context) {
             .build()
         zatonApi = retrofit.create(ZatonApi::class.java)
 
-        prefs
-            .edit()
-            .putBoolean(BUS_DATA_EXISTS, false)
+        prefs.edit()
             .putBoolean(POI_DATA_EXISTS, false)
+            .putBoolean(BUS_DATA_EXISTS, false)
             .apply()
 
         fetchApiVersions()
@@ -53,9 +58,37 @@ class ZatonFetcher(private val context: Context) {
                 call: Call<List<ApiVersions>>,
                 response: Response<List<ApiVersions>>
             ) {
-                response.body()?.let {
+                response.body()?.let { list ->
 
+                    list.forEach {
+
+                        if (it.name == context.getString(R.string.pointsOfInterest)) {
+                            if (it.version == prefs.getInt(
+                                    context.getString(R.string.poi_version),
+                                    0
+                                )
+                            ) {
+                                newPoiVersionAvailable = false
+                            }
+                            prefs.edit().putInt(context.getString(R.string.poi_version), it.version)
+                                .apply()
+                        }
+
+                        if (it.name == context.getString(R.string.busTimetable)) {
+                            if (it.version == prefs.getInt(
+                                    context.getString(R.string.bus_version),
+                                    0
+                                )
+                            ) {
+                                newBusVersionAvailable = false
+                            }
+                            prefs.edit().putInt(context.getString(R.string.bus_version), it.version)
+                                .apply()
+                        }
+                    }
                 }
+                finishedCheckingVersion = true
+
             }
 
             override fun onFailure(call: Call<List<ApiVersions>>, t: Throwable) {
@@ -64,7 +97,19 @@ class ZatonFetcher(private val context: Context) {
         })
     }
 
-    fun fetchItems() {
+    fun fetchPois() {
+
+        while (!finishedCheckingVersion) {
+
+        }
+
+        if (!newPoiVersionAvailable) {
+            prefs.edit()
+                .putBoolean(POI_DATA_EXISTS, true)
+                .apply()
+            redirectIfDone()
+            return
+        }
 
         val request = zatonApi.fetchItems()
         request.enqueue(object : Callback<List<ApiPointOfInterest>> {
@@ -135,6 +180,18 @@ class ZatonFetcher(private val context: Context) {
 
 
     fun fetchBusTimetable() {
+
+        while (!finishedCheckingVersion) {
+
+        }
+
+        if (!newBusVersionAvailable) {
+            prefs.edit()
+                .putBoolean(BUS_DATA_EXISTS, true)
+                .apply()
+            redirectIfDone()
+            return
+        }
 
         val request = zatonApi.fetchBusTimetable()
         request.enqueue(object : Callback<List<ApiBusTimetableItem>> {
