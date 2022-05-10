@@ -9,9 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/listItemPadding"
-        tools:text="@string/zaton_mali_bunica"
+        tools:text="Zaton Mali - Bunica"
         android:background="@drawable/borderbottom"
-        android:textColor="@color/black"
         android:textSize="@dimen/h2"/>
 
 

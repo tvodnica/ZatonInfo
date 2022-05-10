@@ -125,13 +125,11 @@ class PoiDetailsFragment : Fragment() {
             //WHATSAPP
             2 ->
                 try {
-                    Intent(Intent.ACTION_SENDTO).apply {
-                        putExtra(Intent.EXTRA_TEXT, getString(R.string.iAmInterestedAbout) + it.name)
-                        type = "text/plain"
-                        setPackage("com.whatsapp")
-                        startActivity(this)
-                    }
-                } catch (ex: ActivityNotFoundException) {
+                    val url =
+                        "https://api.whatsapp.com/send?phone=${getString(R.string.contactPhoneNumberNoZeros)}" +
+                                "&text=${getString(R.string.iAmInterestedAbout) + it.name}"
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)). setPackage("com.whatsapp"))
+                } catch (e: Exception) {
                     Toast.makeText(
                         requireContext(),
                         getString(R.string.whatsappNotInstalled),

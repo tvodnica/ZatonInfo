@@ -18,8 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/h4"
+            android:textSize="@dimen/h5"
             tools:text="@string/busStop" />
 
         <TextView
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/listItemPadding"
-            android:textColor="@color/black"
             android:textSize="@dimen/h1"
             tools:text="@string/nav_header_title" />
 
@@ -39,7 +37,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/listItemPadding"
             android:gravity="center"
-            android:textColor="@color/black"
             android:textSize="@dimen/h3"
             tools:text="@string/internet_message_first_time" />
 

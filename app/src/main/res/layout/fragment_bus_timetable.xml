@@ -18,24 +18,25 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="@dimen/h3"
+                android:layout_weight="2"
                 android:textStyle="bold"
-                android:text="Number" />
+                android:textSize="@dimen/h4"
+                android:text="@string/number" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Time"
+                android:layout_weight="2"
+                android:text="@string/time"
+                android:textSize="@dimen/h4"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="Notice"
-                android:textSize="@dimen/h3"
+                android:layout_weight="5"
+                android:text="@string/notice"
+                android:textSize="@dimen/h4"
                 android:textStyle="bold" />
 
         </LinearLayout>

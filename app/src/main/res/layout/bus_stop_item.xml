@@ -15,16 +15,14 @@
         android:id="@+id/tv_busStop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="@string/zaton_mali_bunica"
-        android:textColor="@color/black"
+        tools:text="Zaton Mali - Bunica"
         android:textSize="@dimen/h2"/>
         <TextView
             android:id="@+id/tv_busStopDirection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/FromZatonToDubrovnik"
-            android:textColor="@color/black"
-            android:textSize="@dimen/h4"/>
+            android:textSize="@dimen/h5"/>
 
     </LinearLayout>
 

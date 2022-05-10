@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AboutFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.AboutFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,82 +12,102 @@
         android:orientation="vertical"
         android:padding="@dimen/listItemPadding">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Zaton Bay"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="@dimen/h1"
-        android:padding="@dimen/listItemPadding"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/zaton_bay"
+            android:textSize="@dimen/h1"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="About"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="@dimen/h2"
-        android:padding="@dimen/listItemPadding"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/dark_gray"
-        android:text="Zaton is a beautiful seafront village located 10km northwest from Dubrovnik. Translated to Croatian it's name means 'bay', so the bay is literally called 'Bay'."
-        android:gravity="center"
-        android:textSize="@dimen/h3"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/about"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Three villages"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="@dimen/h2"
-        android:padding="@dimen/listItemPadding"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Zaton consists of three parts - Zaton veliki, Zaton Mali and Štikovica. \n 'Veliki' means big and 'Mali' means small, however the Zaton Veliki's bay is actually smaller than the bay in Zaton Mali."
-        android:gravity="center"
-        android:textSize="@dimen/h3"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/about_text"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/h3" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="@dimen/h2"
-        android:padding="@dimen/listItemPadding"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation."
-        android:gravity="center"
-        android:textSize="@dimen/h3"
-        android:layout_marginBottom="@dimen/listItemPadding"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/three_villages"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/zaton_bay"
-        android:adjustViewBounds="true"
-        android:paddingTop="@dimen/listItemPadding"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/three_villages_text"
+            android:textSize="@dimen/h3" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="@dimen/h2"
-        android:padding="@dimen/listItemPadding"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation."
-        android:gravity="center"
-        android:textSize="@dimen/h3"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/history"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/listItemPadding"
+            android:gravity="center"
+            android:text="@string/history_text"
+            android:textSize="@dimen/h3" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingTop="@dimen/listItemPadding"
+            android:src="@drawable/zaton_bay" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/history"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/history_text"
+            android:textSize="@dimen/h3" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/listItemPadding"
+            android:text="@string/history"
+            android:textSize="@dimen/h2"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/history_text"
+            android:textSize="@dimen/h3" />
     </LinearLayout>
 </ScrollView>

@@ -28,7 +28,6 @@
 
 
     <string name="your_local_guide">Your local holiday guide</string>
-    <string name="zaton_mali_bunica">Zaton Mali - Bunica</string>
 
 
     <string name="title_activity_bus_stop_map">BusStopMapActivity</string>
@@ -37,7 +36,7 @@
     <string name="please_select_a_bus_stop">Please select a bus stop</string>
     <string name="FromZatonToDubrovnik">From Zaton to Dubrovnik</string>
     <string name="busInformation">Bus information</string>
-    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine\n\nNone of the buses depart from Zaton, so "</string>
+    <string name="allBusDestinationsInfo">"12 - Slano\n15 - Ston\n21 - Orebić\n22 - Imotica\n26 - Majkovi\n35 - Brsečine\n\nNone of the buses depart from Zaton, so keep in mind that all of the times at the bus stop are approximate."</string>
 
 
     <string name="error">Error</string>
@@ -75,9 +74,25 @@
 
     <string name="setYourUsername">Set your username</string>
     <string name="settingsComment">Found a bug? Have a suggestion? Let us know!</string>
+    <string name="leave_a_review">Leave a review on Google Play</string>
+
 
     <string name="title_activity_bus_timetable">Bus timetable</string>
     <string name="thisBusStop">This bus stop</string>
     <string name="startingPoint">Starting point</string>
+    <string name="number">Number</string>
+    <string name="time">Time</string>
+    <string name="notice">Notice</string>
+    <string name="a_question_mark">A question mark</string>
+
+
+    <string name="zaton_bay">Zaton Bay</string>
+    <string name="about">About</string>
+    <string name="about_text">Zaton is a beautiful seafront village located 10km northwest from Dubrovnik. Translated to Croatian it\'s name means \'bay\', so the bay is literally called \'Bay\'.</string>
+    <string name="three_villages">Three villages</string>
+    <string name="three_villages_text">Zaton consists of three parts - Zaton veliki, Zaton Mali and Štikovica. \n \'Veliki\' means big and \'Mali\' means small, however the Zaton Veliki\'s bay is actually smaller than the bay in Zaton Mali.</string>
+    <string name="history">History</string>
+    <string name="history_text">First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation.</string>
+    <string name="contactPhoneNumberNoZeros">385913628422</string>
 
 </resources>

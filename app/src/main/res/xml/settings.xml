@@ -14,8 +14,7 @@
 
     <Preference
         android:key="@string/rate_us"
-        android:summary="Leave a review on Google Play"
-        android:title="@string/rate_us"
-        />
+        android:summary="@string/leave_a_review"
+        android:title="@string/rate_us" />
 
 </PreferenceScreen>

@@ -38,9 +38,6 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun showAnimations() {
-        binding.tvHello.startAnimation(
-            AnimationUtils.loadAnimation(this, R.anim.rotate)
-        )
 
         binding.tvWelcomeTo.startAnimation(
             AnimationUtils.loadAnimation(this, R.anim.slide)

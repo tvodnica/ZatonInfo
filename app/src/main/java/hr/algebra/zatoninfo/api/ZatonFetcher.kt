@@ -12,6 +12,7 @@ import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
 import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
+import hr.algebra.zatoninfo.model.Versions
 import hr.algebra.zatoninfo.ui.BUS_DATA_EXISTS
 import hr.algebra.zatoninfo.ui.POI_DATA_EXISTS
 import kotlinx.coroutines.GlobalScope
@@ -35,12 +36,32 @@ class ZatonFetcher(private val context: Context) {
             .build()
         zatonApi = retrofit.create(ZatonApi::class.java)
 
-          prefs
-               .edit()
-               .putBoolean(BUS_DATA_EXISTS, false)
-               .putBoolean(POI_DATA_EXISTS, false)
-               .apply()
+        prefs
+            .edit()
+            .putBoolean(BUS_DATA_EXISTS, false)
+            .putBoolean(POI_DATA_EXISTS, false)
+            .apply()
 
+        fetchApiVersions()
+    }
+
+    private fun fetchApiVersions() {
+
+        val request = zatonApi.fetchVersions()
+        request.enqueue(object : Callback<List<ApiVersions>> {
+            override fun onResponse(
+                call: Call<List<ApiVersions>>,
+                response: Response<List<ApiVersions>>
+            ) {
+                response.body()?.let {
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<ApiVersions>>, t: Throwable) {
+                Log.d(javaClass.name, t.message, t)
+            }
+        })
     }
 
     fun fetchItems() {
@@ -82,7 +103,11 @@ class ZatonFetcher(private val context: Context) {
                 var pictureIndex: Int = 1
 
                 it.picturesPaths.split("\n").forEach { picturePath ->
-                    localPicturesPaths += downloadImageAndStore(context, picturePath, it.name + pictureIndex)
+                    localPicturesPaths += downloadImageAndStore(
+                        context,
+                        picturePath,
+                        it.name + pictureIndex
+                    )
                     localPicturesPaths += "\n"
                     pictureIndex++
                 }
@@ -107,7 +132,6 @@ class ZatonFetcher(private val context: Context) {
             redirectIfDone()
         }
     }
-
 
 
     fun fetchBusTimetable() {
@@ -150,7 +174,6 @@ class ZatonFetcher(private val context: Context) {
             redirectIfDone()
         }
     }
-
 
 
     private fun redirectIfDone() {

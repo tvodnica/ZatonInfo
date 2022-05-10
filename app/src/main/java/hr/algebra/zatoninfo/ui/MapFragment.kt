@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.Navigation
 import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -18,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -35,6 +38,7 @@ class MapFragment : Fragment() {
     private lateinit var allPoiTypes: Array<String?>
     private lateinit var checkedItems: BooleanArray
     private var allMarkers = mutableListOf<Marker>()
+    private lateinit var filterDialog: AlertDialog.Builder
     private var hasPermission = false
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
 
@@ -90,9 +94,10 @@ class MapFragment : Fragment() {
 
         binding.btnFilter.setOnClickListener {
 
-            AlertDialog.Builder(requireContext()).apply {
+            filterDialog = AlertDialog.Builder(requireContext()).apply {
                 setTitle(R.string.filter)
                 setCancelable(false)
+                setNeutralButton("Toggle all") { _, _ -> toggleAll() }
                 setPositiveButton(R.string.ok) { _, _ -> updateMap() }
                 setMultiChoiceItems(allPoiTypes, checkedItems) { dialog, which, isChecked ->
                     checkedItems[which] = isChecked
@@ -101,6 +106,25 @@ class MapFragment : Fragment() {
             }
         }
     }
+
+    private fun toggleAll() {
+        var selected = 0
+        var notSelected = 0
+        for ((index) in allPoiTypes.withIndex()) {
+            if (checkedItems[index]) selected++ else notSelected++
+        }
+        if (selected > notSelected) {
+            for ((index, value) in allPoiTypes.withIndex()) {
+                checkedItems[index] = false
+            }
+        } else {
+            for ((index, value) in allPoiTypes.withIndex()) {
+                checkedItems[index] = true
+            }
+        }
+        filterDialog.show()
+    }
+
 
     private fun getAndLoadMap() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_map) as SupportMapFragment?
@@ -167,7 +191,8 @@ class MapFragment : Fragment() {
             allMarkers.add(marker)
             googleMap.setOnInfoWindowClickListener {
                 val poi_id = it.tag!!.toString().toLong()
-                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putLong(requireContext().getString(R.string.selectedInterest), poi_id).apply()
+                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
+                    .putLong(requireContext().getString(R.string.selectedInterest), poi_id).apply()
                 Navigation.findNavController(requireView()).navigate(R.id.nav_mapToPoiDetails)
             }
         }
@@ -224,5 +249,6 @@ class MapFragment : Fragment() {
         }
     }
 }
+
 
 

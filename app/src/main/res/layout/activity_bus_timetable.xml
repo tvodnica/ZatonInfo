@@ -38,9 +38,10 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="?attr/colorPrimary"
         app:maxImageSize="46dp"
         app:srcCompat="@drawable/ic_menu_question_mark"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        android:contentDescription="@string/a_question_mark" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
