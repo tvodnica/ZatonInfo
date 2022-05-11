@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import com.google.android.play.core.review.testing.FakeReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import hr.algebra.zatoninfo.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -17,7 +17,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         if (preference == preferenceScreen.findPreference(getString(R.string.rate_us))) {
 
             val manager =
-                FakeReviewManager(requireContext()) //ReviewManagerFactory.create(requireContext())
+               ReviewManagerFactory.create(requireContext())
             val request = manager.requestReviewFlow()
             request.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -28,7 +28,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         // The flow has finished. The API does not indicate whether the user
                         // reviewed or not, or even whether the review dialog was shown. Thus, no
                         // matter the result, we continue our app flow.
-
                     }
                 } else {
                     // There was some problem, log or handle the error code.

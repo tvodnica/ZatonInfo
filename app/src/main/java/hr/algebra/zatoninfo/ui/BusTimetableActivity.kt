@@ -1,12 +1,10 @@
 package hr.algebra.zatoninfo.ui
 
 import android.app.AlertDialog
-import android.opengl.Visibility
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.adapters.SectionsPagerAdapter

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">ZatonInfo</string>
+    <string name="your_local_guide">Your local holiday guide</string>
+
 
     <string name="hi_there">Hi there!</string>
     <string name="welcome_to">Welcome to</string>
@@ -27,9 +29,6 @@
     <string name="menu_welcome"></string>
 
 
-    <string name="your_local_guide">Your local holiday guide</string>
-
-
     <string name="title_activity_bus_stop_map">BusStopMapActivity</string>
     <string name="help_me_choose">Help me choose</string>
     <string name="busStop">Bus stop</string>
@@ -48,6 +47,9 @@
     <string name="internet_message_first_time">Internet is required for first time use. Please enable internet on your device to download information.</string>
     <string name="internet_message_update">Could not check for updates because there was no internet. Please enable internet next time to make sure you have the newest information.</string>
     <string name="noGpsErrorMessage">Location services are disabled. Please enable location services on your device to see your location on the map.</string>
+    <string name="location_denied_message">Location permission denied. You will not be able to see your location on the map.</string>
+    <string name="location_granted_message">You can now use the location button to see your location on the map.</string>
+    <string name="whatsappNotInstalled">WhatsApp is not installed on your device.</string>
 
 
     <string name="interestType">InterestType</string>
@@ -64,12 +66,13 @@
 
     <string name="contactEmail">tomo.vodnica@gmail.com</string>
     <string name="contactPhoneNumber">00385913628422</string>
-    <string name="enquiryFor">\"ZatonInfo - enquiry for "\</string>
-    <string name="iAmInterestedAbout">\"Hi! I am interested about "\</string>
+    <string name="contactPhoneNumberNoZeros">385913628422</string>
+    <string name="enquiryFor">ZatonInfo - enquiry for </string>
+    <string name="iAmInterestedAbout">Hi! I am interested about </string>
     <string name="book_enquire">Book / Enquire</string>
     <string name="sendAnEnquiry">Send an enquiry</string>
     <string name="sendAnEmail">Send an e-mail</string>
-    <string name="whatsappNotInstalled">WhatsApp is not installed on your device.</string>
+    <string name="toggle_all">Toggle all</string>
 
 
     <string name="setYourUsername">Set your username</string>
@@ -92,9 +95,6 @@
     <string name="three_villages">Three villages</string>
     <string name="three_villages_text">Zaton consists of three parts - Zaton veliki, Zaton Mali and Štikovica. \n \'Veliki\' means big and \'Mali\' means small, however the Zaton Veliki\'s bay is actually smaller than the bay in Zaton Mali.</string>
     <string name="history">History</string>
-    <string name="history_text">First records about Zaton have been found going back to 1400s. The nobility loved the area and would build summer homes to use for vacation.</string>
-    <string name="contactPhoneNumberNoZeros">385913628422</string>
-    <string name="poi_version">poi_version</string>
-    <string name="bus_version">bus_version</string>
+    <string name="history_text">During the Republic of Ragusa era, the nobility loved the area and would build summer homes to use for vacation. Families like Gučetić, Menčetić, Sorkočević, Saraka and Lukarević are some to name.\nDuring the Croatian war of independance Zaton was occupied from October 1991 until April 1992 by the Yugoslav people army. Alot of houses were destroyed, burnt and robbed.</string>
 
 </resources>

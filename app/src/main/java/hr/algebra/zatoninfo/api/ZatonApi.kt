@@ -1,6 +1,5 @@
 package hr.algebra.zatoninfo.api
 
-import hr.algebra.zatoninfo.model.Versions
 import retrofit2.Call
 import retrofit2.http.GET
 

@@ -1,19 +1,18 @@
 package hr.algebra.zatoninfo.ui
 
 import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.app.ActivityCompat.invalidateOptionsMenu
+import androidx.core.view.MarginLayoutParamsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -87,6 +86,7 @@ class PoiDetailsFragment : Fragment() {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT
                     )
+                    setPadding(0,0,0,25)
                     adjustViewBounds = true
                 }
                 binding.llImageHolder.addView(image)

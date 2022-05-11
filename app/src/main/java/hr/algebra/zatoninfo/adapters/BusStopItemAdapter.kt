@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import hr.algebra.zatoninfo.R
+import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.model.PointOfInterest
 import hr.algebra.zatoninfo.ui.BusTimetableActivity
 
@@ -33,9 +34,9 @@ class BusStopItemAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
+            context.getPreferences().edit().putString(context.getString(
                             R.string.selectedBusStopName), items[position].name).apply()
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putString(context.getString(
+            context.getPreferences().edit().putString(context.getString(
                             R.string.selectedBusStopDirection), items[position].description).apply()
             context.startActivity(Intent(context, BusTimetableActivity::class.java))
         }

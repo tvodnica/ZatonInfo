@@ -14,7 +14,7 @@ import hr.algebra.zatoninfo.databinding.FragmentActivitiesBinding
 class ActivitiesFragment : Fragment() {
 
     private lateinit var binding: FragmentActivitiesBinding
-    private lateinit var allTrips: MutableList<PointOfInterest>
+    private lateinit var allActivities: MutableList<PointOfInterest>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +30,13 @@ class ActivitiesFragment : Fragment() {
     }
 
     private fun loadAndPrepareData() {
-        allTrips = requireContext().fetchActivities()
+        allActivities = requireContext().fetchActivities()
     }
 
     private fun loadList() {
         binding.rvTrips.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = TripsAdapter(context, allTrips)
+            adapter = TripsAdapter(context, allActivities)
         }
     }
 }

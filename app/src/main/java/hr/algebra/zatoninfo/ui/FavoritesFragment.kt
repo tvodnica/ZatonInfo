@@ -13,8 +13,6 @@ import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
 
 class FavoritesFragment : Fragment() {
 
-    private var allPoisWithoutTrips = mutableListOf<PointOfInterest>()
-    private var allTrips = mutableListOf<PointOfInterest>()
     private lateinit var binding: FragmentFavoritesBinding
 
     override fun onCreateView(

@@ -6,7 +6,6 @@ import android.database.Cursor
 import android.net.Uri
 import getZatonRepository
 import hr.algebra.zatoninfo.dao.BUS_TABLE_NAME
-import hr.algebra.zatoninfo.dao.POI_TABLE_NAME
 import hr.algebra.zatoninfo.dao.ZatonRepository
 
 private const val AUTHORITY = "hr.algebra.zatoninfo.api.provider.bus"
@@ -59,6 +58,5 @@ class BusTimetableProvider : ContentProvider() {
     ): Int {
         return zatonRepository.update(BUS_TABLE_NAME, values, selection, selectionArgs)
     }
-
 
 }

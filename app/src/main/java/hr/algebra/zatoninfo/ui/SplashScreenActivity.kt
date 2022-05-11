@@ -13,8 +13,8 @@ import hr.algebra.zatoninfo.databinding.ActivitySplashScreenBinding
 import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.framework.hasInternetAccess
 
-const val POI_DATA_EXISTS = " hr.algebra.zatoninfo.poi_data_exists"
-const val BUS_DATA_EXISTS = " hr.algebra.zatoninfo.bus_data_exists"
+const val POI_DATA_EXISTS = "hr.algebra.zatoninfo.poi_data_exists"
+const val BUS_DATA_EXISTS = "hr.algebra.zatoninfo.bus_data_exists"
 
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -32,8 +32,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun showUsername() {
-        val username = PreferenceManager.getDefaultSharedPreferences(this)
-            .getString(getString(R.string.username_key), "")
+        val username = getPreferences().getString(getString(R.string.username_key), "")
         if (username != "") binding.tvHello.text = "Hi ${username}!"
     }
 

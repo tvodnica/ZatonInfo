@@ -1,6 +1,5 @@
 package hr.algebra.zatoninfo.ui
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import hr.algebra.zatoninfo.databinding.FragmentBusTimetableBinding
 import hr.algebra.zatoninfo.framework.fetchBusTimetable
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.adapters.BusTimetableAdapter
+import hr.algebra.zatoninfo.framework.getPreferences
 
 class BusTimetableFragment(private val startingDestination: Boolean) : Fragment() {
 
@@ -35,19 +35,18 @@ class BusTimetableFragment(private val startingDestination: Boolean) : Fragment(
 
         busTimetable = requireContext().fetchBusTimetable()
 
-        val selectedBusStopName = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(getString(R.string.selectedBusStopName), "")
-        val selectedBusStopDirection = PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(getString(R.string.selectedBusStopDirection), "")
+        val selectedBusStopName =
+            requireContext().getPreferences().getString(getString(R.string.selectedBusStopName), "")
+        val selectedBusStopDirection = requireContext().getPreferences()
+            .getString(getString(R.string.selectedBusStopDirection), "")
 
         busTimetable.forEach {
-            if (it.busStop == selectedBusStopName && it.direction == selectedBusStopDirection){
-                selectedBusStopTimetable.add(it)
-            }
-        }
-
-        if(startingDestination){
-            selectedBusStopTimetable.clear()
-            busTimetable.forEach {
-                if (it.busStop == getString(R.string.startingPoint) && it.direction == selectedBusStopDirection){
+            if (!startingDestination) {
+                if (it.busStop == selectedBusStopName && it.direction == selectedBusStopDirection) {
+                    selectedBusStopTimetable.add(it)
+                }
+            } else {
+                if (it.busStop == getString(R.string.startingPoint) && it.direction == selectedBusStopDirection) {
                     selectedBusStopTimetable.add(it)
                 }
             }

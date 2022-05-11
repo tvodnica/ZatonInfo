@@ -7,10 +7,10 @@
         android:summary="@string/setYourUsername"
         android:title="@string/username_key" />
 
-    <EditTextPreference
+   <!-- <EditTextPreference
         android:key="@string/leave_a_comment_key"
         android:summary="@string/settingsComment"
-        android:title="@string/leave_a_comment_key" />
+        android:title="@string/leave_a_comment_key" />-->
 
     <Preference
         android:key="@string/rate_us"

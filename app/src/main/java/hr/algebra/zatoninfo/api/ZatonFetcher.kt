@@ -3,7 +3,6 @@ package hr.algebra.zatoninfo.api
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
-import android.os.SystemClock
 import android.util.Log
 import androidx.preference.PreferenceManager
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
@@ -11,10 +10,10 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.ZatonReceiver
 import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
+import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.model.Versions
 import hr.algebra.zatoninfo.ui.BUS_DATA_EXISTS
 import hr.algebra.zatoninfo.ui.POI_DATA_EXISTS
 import kotlinx.coroutines.GlobalScope
@@ -26,10 +25,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 
+const val POI_VERSION = "hr.algebra.zatoninfo.poi_version"
+const val BUS_VERSION = "hr.algebra.zatoninfo.bus_version"
+
 class ZatonFetcher(private val context: Context) {
 
     private var zatonApi: ZatonApi
-    private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+    private val prefs = context.getPreferences()
     var newPoiVersionAvailable = true
     var newBusVersionAvailable = true
     var finishedCheckingVersion = false
@@ -64,25 +66,24 @@ class ZatonFetcher(private val context: Context) {
 
                         if (it.name == context.getString(R.string.pointsOfInterest)) {
                             if (it.version == prefs.getInt(
-                                    context.getString(R.string.poi_version),
-                                    0
+                                    POI_VERSION, 0
                                 )
                             ) {
                                 newPoiVersionAvailable = false
                             }
-                            prefs.edit().putInt(context.getString(R.string.poi_version), it.version)
+                            prefs.edit().putInt(POI_VERSION, it.version)
                                 .apply()
                         }
 
                         if (it.name == context.getString(R.string.busTimetable)) {
                             if (it.version == prefs.getInt(
-                                    context.getString(R.string.bus_version),
+                                    BUS_VERSION,
                                     0
                                 )
                             ) {
                                 newBusVersionAvailable = false
                             }
-                            prefs.edit().putInt(context.getString(R.string.bus_version), it.version)
+                            prefs.edit().putInt(BUS_VERSION, it.version)
                                 .apply()
                         }
                     }
@@ -148,13 +149,16 @@ class ZatonFetcher(private val context: Context) {
                 var pictureIndex: Int = 1
 
                 it.picturesPaths.split("\n").forEach { picturePath ->
-                    localPicturesPaths += downloadImageAndStore(
-                        context,
-                        picturePath,
-                        it.name + pictureIndex
-                    )
-                    localPicturesPaths += "\n"
-                    pictureIndex++
+
+                    if (picturePath.isNotBlank()) {
+                        localPicturesPaths += downloadImageAndStore(
+                            context,
+                            picturePath,
+                            it.name + pictureIndex
+                        )
+                        localPicturesPaths += "\n"
+                        pictureIndex++
+                    }
                 }
 
                 val values = ContentValues().apply {

@@ -1,6 +1,5 @@
 package hr.algebra.zatoninfo.ui
 
-import android.R.menu
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -28,25 +27,24 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
+        val drawerLayout: DrawerLayout = binding.drawerLayout //activity_main.xml
+        val navView: NavigationView = binding.navView //navigation drawer
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
+        appBarConfiguration = AppBarConfiguration( //Spoji ove fragmente sa nav drawerom, tj njima prikaži hamburger
             setOf(
                 R.id.nav_interests, R.id.nav_map, R.id.nav_settings, R.id.nav_activities,
                 R.id.nav_busStopChooser, R.id.nav_favorites, R.id.nav_about, R.id.nav_welcome
             ), drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration) //Prikaži hamburger i ime fragmenta
         navView.setupWithNavController(navController)
 
         //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         menu.setGroupVisible(R.id.main_menu_group, false)
         return true
