@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.ActivityMainBinding
+import hr.algebra.zatoninfo.framework.getPreferences
 
 
 class MainActivity : AppCompatActivity() {

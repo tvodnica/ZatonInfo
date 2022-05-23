@@ -24,6 +24,7 @@ import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.databinding.FragmentPoiDetailsBinding
 import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
+import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.model.PointOfInterest
 import java.io.File
 
@@ -116,7 +117,7 @@ class PoiDetailsFragment : Fragment() {
             //E-MAIL
             0 -> Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:" + getString(R.string.contactEmail))
-                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.enquiryFor) + it.name)
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.enquiryFor) + " " + it.name)
                 putExtra(Intent.EXTRA_TEXT, getString(R.string.iAmInterestedAbout))
                 startActivity(Intent.createChooser(this, getString(R.string.sendAnEmail)))
             }
@@ -127,7 +128,7 @@ class PoiDetailsFragment : Fragment() {
                 try {
                     val url =
                         "https://api.whatsapp.com/send?phone=${getString(R.string.contactPhoneNumberNoZeros)}" +
-                                "&text=${getString(R.string.iAmInterestedAbout) + it.name}"
+                                "&text=${getString(R.string.iAmInterestedAbout) + " " + it.name}"
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)). setPackage("com.whatsapp"))
                 } catch (e: Exception) {
                     Toast.makeText(
@@ -173,4 +174,5 @@ class PoiDetailsFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

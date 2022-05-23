@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentMapBinding
 import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
+import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.framework.showErrorIfGpsDisabled
 import hr.algebra.zatoninfo.model.PointOfInterest
 
@@ -38,6 +39,10 @@ class MapFragment : Fragment() {
     private lateinit var filterDialog: AlertDialog.Builder
     private var hasPermission = false
     private val MY_PERMISSIONS_REQUEST_LOCATION = 99
+
+    companion object{
+        var preservedCheckedItems: BooleanArray = booleanArrayOf()
+    }
 
 
     override fun onCreateView(
@@ -85,6 +90,15 @@ class MapFragment : Fragment() {
             checkedItems[i] = true
             i++
         }
+
+        if (requireContext().getPreferences().getBoolean(PRESERVE_FILTER_STATUS, false)
+            && preservedCheckedItems.isNotEmpty()
+        ){
+            checkedItems = preservedCheckedItems
+            updateMap()
+            requireContext().getPreferences().edit().putBoolean(PRESERVE_FILTER_STATUS, false).apply()
+        }
+
     }
 
     private fun setupListeners() {
@@ -188,8 +202,12 @@ class MapFragment : Fragment() {
             allMarkers.add(marker)
             googleMap.setOnInfoWindowClickListener {
                 val poi_id = it.tag!!.toString().toLong()
-                PreferenceManager.getDefaultSharedPreferences(requireContext()).edit()
-                    .putLong(requireContext().getString(R.string.selectedInterest), poi_id).apply()
+                requireContext().getPreferences()
+                    .edit()
+                    .putLong(requireContext().getString(R.string.selectedInterest), poi_id)
+                    .putBoolean(PRESERVE_FILTER_STATUS, true)
+                    .apply()
+                preservedCheckedItems = checkedItems
                 Navigation.findNavController(requireView()).navigate(R.id.nav_mapToPoiDetails)
             }
         }
