@@ -147,11 +147,11 @@ class PoiDetailsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        // Ovo ne radi i ne znam zašto, predugo tražim rješenje, odustajem
+        inflater.inflate(R.menu.main, menu)
         menu.findItem(R.id.action_favorite).icon =
             if (selectedPoi.favorite) getDrawable(requireContext(), R.drawable.ic_menu_favorite)
             else getDrawable(requireContext(), R.drawable.ic_menu_not_favorite)
-        inflater.inflate(R.menu.main, menu)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

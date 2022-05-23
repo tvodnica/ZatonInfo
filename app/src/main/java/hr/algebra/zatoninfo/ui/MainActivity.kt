@@ -30,8 +30,6 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout //activity_main.xml
         val navView: NavigationView = binding.navView //navigation drawer
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration( //Spoji ove fragmente sa nav drawerom, tj njima prikaži hamburger
             setOf(
                 R.id.nav_interests, R.id.nav_map, R.id.nav_settings, R.id.nav_activities,
@@ -42,12 +40,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        menu.setGroupVisible(R.id.main_menu_group, false)
-        return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
