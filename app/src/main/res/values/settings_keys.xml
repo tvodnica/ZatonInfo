@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="username_key" translatable="false">Username</string>
-    <string name="leave_a_comment_key" translatable="false">Leave a comment</string>
+    <string name="leave_a_comment_key" translatable="false">Contact the developer</string>
     <string name="rate_us" translatable="false">Rate us</string>
 </resources>

@@ -11,8 +11,8 @@ android {
         applicationId "hr.algebra.zatoninfo"
         minSdk 26
         targetSdk 31
-        versionCode 4
-        versionName "4.0"
+        versionCode 6
+        versionName "4.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -76,7 +76,7 @@
 
 
     <string name="setYourUsername">Set your username</string>
-    <string name="settingsComment">Found a bug? Have a suggestion? Let us know!</string>
+    <string name="settingsComment">Found a bug? Have a suggestion? Love something? Hate it? Let us know!</string>
     <string name="leave_a_review">Leave a review on Google Play</string>
 
 
@@ -96,5 +96,10 @@
     <string name="three_villages_text">Zaton consists of three parts - Zaton veliki, Zaton Mali and Štikovica. \n \'Veliki\' means big and \'Mali\' means small, however the Zaton Veliki\'s bay is actually smaller than the bay in Zaton Mali.</string>
     <string name="history">History</string>
     <string name="history_text">During the Republic of Ragusa era, the nobility loved the area and would build summer homes to use for vacation. Families like Gučetić, Menčetić, Sorkočević, Saraka and Lukarević are some to name.\nDuring the Croatian war of independance Zaton was occupied from October 1991 until April 1992 by the Yugoslav people army. Alot of houses were destroyed, burnt and robbed.</string>
+    <string name="messageSent">Your message has been sent. Thank you!</string>
+    <string name="messageNotSent">There has been an error and your message was not sent. Please try again.</string>
+    <string name="cannot_send_empty_msg">You cannot send an empty message</string>
+    <string name="no_internet_message">No internet found. You need internet connection to use this feature.</string>
+    <string name="your_message_here">Your message here</string>
 
 </resources>

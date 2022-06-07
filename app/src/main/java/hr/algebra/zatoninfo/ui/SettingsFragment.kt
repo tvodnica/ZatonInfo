@@ -1,15 +1,22 @@
 package hr.algebra.zatoninfo.ui
 
+import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.EditText
 import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.core.view.setPadding
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import hr.algebra.zatoninfo.R
+import hr.algebra.zatoninfo.api.ContactFetcher
 import hr.algebra.zatoninfo.framework.getPreferences
+import hr.algebra.zatoninfo.framework.hasInternetAccess
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -52,7 +59,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             // reviewed or not, or even whether the review dialog was shown. Thus, no
                             // matter the result, we continue our app flow.
                         }
-                        requireContext().getPreferences().edit().putBoolean(RATE_US_ALREADY_CLICKED, true).apply()
+                        requireContext().getPreferences().edit()
+                            .putBoolean(RATE_US_ALREADY_CLICKED, true).apply()
                     } else {
                         // There was some problem, log or handle the error code.
                         //@ReviewErrorCode val reviewErrorCode = (task.getException() as TaskException).errorCode
@@ -64,6 +72,34 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     }
                 }
 
+            }
+        }
+        if (preference == preferenceScreen.findPreference(getString(R.string.leave_a_comment_key))) {
+
+            if (!requireContext().hasInternetAccess()) {
+                Toast.makeText(
+                    requireContext(),
+                    requireContext().getString(R.string.no_internet_message),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
+
+                val et = EditText(requireContext()).apply {
+                    setPadding(50)
+                    setLines(4)
+                    gravity = Gravity.TOP
+                    hint = context.getString(R.string.your_message_here)
+                }
+
+                AlertDialog.Builder(requireContext()).apply {
+                    setTitle(getString(R.string.leave_a_comment_key))
+                    setNegativeButton(getString(R.string.cancel), null)
+                    setPositiveButton(getString(R.string.ok)) { _, _ ->
+                        ContactFetcher(requireContext()).sendAMessage(et.text.toString())
+                    }
+                    setView(et)
+                    show()
+                }
             }
         }
         return super.onPreferenceTreeClick(preference)
