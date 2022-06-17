@@ -31,7 +31,6 @@ fun Context.fetchPoisWithoutActivities(): MutableList<PointOfInterest> {
     }
     return pointsOfInterest
 }
-
 fun Context.fetchActivities(): MutableList<PointOfInterest> {
 
     val pointsOfInterest = mutableListOf<PointOfInterest>()
@@ -48,7 +47,6 @@ fun Context.fetchActivities(): MutableList<PointOfInterest> {
     }
     return pointsOfInterest
 }
-
 fun Context.fetchAllPointsOfInterest(): MutableList<PointOfInterest> {
 
     val allPointsOfInterest = mutableListOf<PointOfInterest>()
@@ -61,6 +59,22 @@ fun Context.fetchAllPointsOfInterest(): MutableList<PointOfInterest> {
     }
 
     return allPointsOfInterest
+}
+fun Context.fetchBusTimetable(): MutableList<BusTimetableItem> {
+    val busTimetable = mutableListOf<BusTimetableItem>()
+    val cursor = contentResolver?.query(BUS_PROVIDER_URI, null, null, null, null)
+    while (cursor != null && cursor.moveToNext()) {
+        busTimetable.add(
+            BusTimetableItem(
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busNumber.name)),
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::time.name)),
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::notice.name)),
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::direction.name)),
+                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busStop.name))
+            )
+        )
+    }
+    return busTimetable
 }
 
 fun loadPoiData(cursor: Cursor, pointsOfInterest: MutableList<PointOfInterest>) {
@@ -89,23 +103,6 @@ fun loadPoiData(cursor: Cursor, pointsOfInterest: MutableList<PointOfInterest>) 
 
 }
 
-fun Context.fetchBusTimetable(): MutableList<BusTimetableItem> {
-    val busTimetable = mutableListOf<BusTimetableItem>()
-    val cursor = contentResolver?.query(BUS_PROVIDER_URI, null, null, null, null)
-    while (cursor != null && cursor.moveToNext()) {
-        busTimetable.add(
-            BusTimetableItem(
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busNumber.name)),
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::time.name)),
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::notice.name)),
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::direction.name)),
-                cursor.getString(cursor.getColumnIndexOrThrow(BusTimetableItem::busStop.name))
-            )
-        )
-    }
-    return busTimetable
-}
-
 fun Context.isGpsEnabled(): Boolean {
 
     val locationManager =
@@ -113,7 +110,6 @@ fun Context.isGpsEnabled(): Boolean {
 
     return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 }
-
 fun Context.hasInternetAccess(): Boolean {
 
     val connectivityManager = getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -127,9 +123,6 @@ fun Context.hasInternetAccess(): Boolean {
         else -> false
     }
 }
-
-fun Context.getPreferences() = PreferenceManager.getDefaultSharedPreferences(this)
-
 fun Context.showErrorIfGpsDisabled(){
     if (!isGpsEnabled()) {
         AlertDialog.Builder(this).apply {
@@ -140,3 +133,16 @@ fun Context.showErrorIfGpsDisabled(){
         }
     }
 }
+
+fun Context.getPreferences() = PreferenceManager.getDefaultSharedPreferences(this)
+
+fun Context.getPoiDataVersion() = getPreferences().getInt(POI_VERSION, 0)
+fun Context.getBusDataVersion() = getPreferences().getInt(BUS_VERSION, 0)
+fun Context.setPoiDataVersion(int: Int) = getPreferences().edit().putInt(POI_VERSION, int).apply()
+fun Context.setBusDataVersion(int: Int) = getPreferences().edit().putInt(BUS_VERSION, int).apply()
+
+
+fun Context.getPoiDataExists() = getPreferences().getBoolean(POI_DATA_EXISTS, false)
+fun Context.getBusDataExists() = getPreferences().getBoolean(BUS_DATA_EXISTS, false)
+fun Context.setPoiDataExists(boolean: Boolean) = getPreferences().edit().putBoolean(POI_DATA_EXISTS, boolean).apply()
+fun Context.setBusDataExists(boolean: Boolean) = getPreferences().edit().putBoolean(BUS_DATA_EXISTS, boolean).apply()

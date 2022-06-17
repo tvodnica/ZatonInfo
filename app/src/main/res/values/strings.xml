@@ -101,5 +101,8 @@
     <string name="cannot_send_empty_msg">You cannot send an empty message</string>
     <string name="no_internet_message">No internet found. You need internet connection to use this feature.</string>
     <string name="your_message_here">Your message here</string>
+    <string name="exit">Exit</string>
+    <string name="internetLost">Internet connection has been lost. Please make sure you have a stable internet connection and try again.</string>
+    <string name="downloadErrorMessage">There has been an error downloading data. Please make sure you have a stable internet connection and try again.</string>
 
 </resources>

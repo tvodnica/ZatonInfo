@@ -8,13 +8,13 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.GravityCompat
 import androidx.core.view.setPadding
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.play.core.review.ReviewManagerFactory
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.api.ContactFetcher
+import hr.algebra.zatoninfo.framework.RATE_US_ALREADY_CLICKED
 import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.framework.hasInternetAccess
 

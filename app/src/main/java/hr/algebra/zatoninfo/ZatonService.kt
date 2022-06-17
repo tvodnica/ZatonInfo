@@ -9,11 +9,7 @@ import hr.algebra.zatoninfo.api.ZatonFetcher
 class ZatonService : JobIntentService() {
 
     override fun onHandleWork(intent: Intent) {
-
-        ZatonFetcher(this).apply {
-            fetchPois()
-            fetchBusTimetable()
-        }
+        ZatonFetcher(this).fetchAllData()
     }
 
     companion object {

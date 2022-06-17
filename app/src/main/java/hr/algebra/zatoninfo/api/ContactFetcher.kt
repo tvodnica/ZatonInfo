@@ -1,36 +1,20 @@
 package hr.algebra.zatoninfo.api
 
-import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import hr.algebra.zatoninfo.BUS_PROVIDER_URI
 import hr.algebra.zatoninfo.R
-import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
-import hr.algebra.zatoninfo.ZatonReceiver
-import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
-import hr.algebra.zatoninfo.framework.getPreferences
-import hr.algebra.zatoninfo.handler.downloadImageAndStore
-import hr.algebra.zatoninfo.model.BusTimetableItem
-import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.BUS_DATA_EXISTS
-import hr.algebra.zatoninfo.ui.POI_DATA_EXISTS
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.File
 
 class ContactFetcher(private val context: Context) {
 
     private var contactApi: ContactApi
-    private val prefs = context.getPreferences()
 
 
     init {

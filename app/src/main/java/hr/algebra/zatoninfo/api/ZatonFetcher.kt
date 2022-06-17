@@ -3,19 +3,19 @@ package hr.algebra.zatoninfo.api
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import androidx.preference.PreferenceManager
+import androidx.appcompat.app.AlertDialog
 import hr.algebra.zatoninfo.BUS_PROVIDER_URI
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.ZATON_PROVIDER_URI
 import hr.algebra.zatoninfo.ZatonReceiver
-import hr.algebra.zatoninfo.framework.fetchAllPointsOfInterest
-import hr.algebra.zatoninfo.framework.getPreferences
+import hr.algebra.zatoninfo.framework.*
 import hr.algebra.zatoninfo.handler.downloadImageAndStore
 import hr.algebra.zatoninfo.model.BusTimetableItem
 import hr.algebra.zatoninfo.model.PointOfInterest
-import hr.algebra.zatoninfo.ui.BUS_DATA_EXISTS
-import hr.algebra.zatoninfo.ui.POI_DATA_EXISTS
+import hr.algebra.zatoninfo.ui.SplashScreenActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -24,18 +24,19 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-
-const val POI_VERSION = "hr.algebra.zatoninfo.poi_version"
-const val BUS_VERSION = "hr.algebra.zatoninfo.bus_version"
+import kotlin.system.exitProcess
 
 class ZatonFetcher(private val context: Context) {
 
     private var zatonApi: ZatonApi
-    private val prefs = context.getPreferences()
+    
     var newPoiVersionAvailable = true
     var newBusVersionAvailable = true
-    var finishedCheckingVersion = false
 
+    var poiApiVersion = 0
+    var busApiVersion = 0
+
+    var noInternet = false
 
     init {
         val retrofit = Retrofit.Builder()
@@ -44,15 +45,30 @@ class ZatonFetcher(private val context: Context) {
             .build()
         zatonApi = retrofit.create(ZatonApi::class.java)
 
-        prefs.edit()
-            .putBoolean(POI_DATA_EXISTS, false)
-            .putBoolean(BUS_DATA_EXISTS, false)
-            .apply()
 
+        context.setPoiDataExists(false)
+        context.setBusDataExists(false)
+
+        /*
+        SAMO ZA TESTIRANJE!!!!!!
+        context.setPoiDataVersion(0)
+         */
+
+    }
+
+    fun fetchAllData() {
         fetchApiVersions()
+        Thread {
+            while (!context.getPoiDataExists() || !context.getBusDataExists())
+                if (!context.hasInternetAccess()) {
+                    showNoInternetMessage()
+                    break
+                }
+        }.start()
     }
 
     private fun fetchApiVersions() {
+        showLoadingMessage("Checking for updates...")
 
         val request = zatonApi.fetchVersions()
         request.enqueue(object : Callback<List<ApiVersions>> {
@@ -65,50 +81,39 @@ class ZatonFetcher(private val context: Context) {
                     list.forEach {
 
                         if (it.name == context.getString(R.string.pointsOfInterest)) {
-                            if (it.version == prefs.getInt(
-                                    POI_VERSION, 0
-                                )
-                            ) {
+                            if (it.version == context.getPoiDataVersion()) {
                                 newPoiVersionAvailable = false
                             }
-                            prefs.edit().putInt(POI_VERSION, it.version)
-                                .apply()
+                            poiApiVersion = it.version
                         }
 
                         if (it.name == context.getString(R.string.busTimetable)) {
-                            if (it.version == prefs.getInt(
-                                    BUS_VERSION,
-                                    0
-                                )
-                            ) {
+                            if (it.version == context.getBusDataVersion()) {
                                 newBusVersionAvailable = false
                             }
-                            prefs.edit().putInt(BUS_VERSION, it.version)
-                                .apply()
                         }
+                        busApiVersion = it.version
                     }
                 }
-                finishedCheckingVersion = true
-
+                fetchPois()
             }
 
             override fun onFailure(call: Call<List<ApiVersions>>, t: Throwable) {
                 Log.d(javaClass.name, t.message, t)
+                showErrorMessage()
             }
         })
     }
 
-    fun fetchPois() {
+    //------------------   POIS   --------------------------
 
-        while (!finishedCheckingVersion) {
-
-        }
+    private fun fetchPois() {
+        showLoadingMessage("Downloading interests")
 
         if (!newPoiVersionAvailable) {
-            prefs.edit()
-                .putBoolean(POI_DATA_EXISTS, true)
-                .apply()
+            context.setPoiDataExists(true)
             redirectIfDone()
+            fetchBusTimetable()
             return
         }
 
@@ -119,17 +124,18 @@ class ZatonFetcher(private val context: Context) {
                 response: Response<List<ApiPointOfInterest>>
             ) {
                 response.body()?.let {
-                    populateItems(it)
+                    populatePoiItems(it)
                 }
             }
 
             override fun onFailure(call: Call<List<ApiPointOfInterest>>, t: Throwable) {
                 Log.d(javaClass.name, t.message, t)
+                showErrorMessage()
             }
         })
     }
 
-    private fun populateItems(apiPointsOfInterest: List<ApiPointOfInterest>) {
+    private fun populatePoiItems(apiPointsOfInterest: List<ApiPointOfInterest>) {
         GlobalScope.launch {
 
             val favorites = mutableListOf<String>()
@@ -139,14 +145,21 @@ class ZatonFetcher(private val context: Context) {
                     File(picturePath).delete()
                 }
             }
+            var currentImage = 0
+            var allImages = 0
+            apiPointsOfInterest.forEach {
+                it.picturesPaths.split("\n").forEach { s ->
+                    if (s.isNotBlank()) allImages += 1
+                }
+            }
 
             context.contentResolver.delete(ZATON_PROVIDER_URI, null, null)
             apiPointsOfInterest.forEach {
 
                 val favorite = favorites.contains(it.name)
 
-                var localPicturesPaths: String = ""
-                var pictureIndex: Int = 1
+                var localPicturesPaths = ""
+                var pictureIndex = 1
 
                 it.picturesPaths.split("\n").forEach { picturePath ->
 
@@ -158,6 +171,8 @@ class ZatonFetcher(private val context: Context) {
                         )
                         localPicturesPaths += "\n"
                         pictureIndex++
+                        currentImage++
+                        showLoadingMessage("Downloading images (${currentImage}/${allImages})")
                     }
                 }
 
@@ -173,26 +188,20 @@ class ZatonFetcher(private val context: Context) {
                 context.contentResolver.insert(ZATON_PROVIDER_URI, values)
                 pictureIndex = 1
             }
-            prefs
-                .edit()
-                .putBoolean(POI_DATA_EXISTS, true)
-                .apply()
+            context.setPoiDataExists(true)
 
             redirectIfDone()
+            fetchBusTimetable()
         }
     }
 
+    //------------------   BUS   --------------------------
 
-    fun fetchBusTimetable() {
-
-        while (!finishedCheckingVersion) {
-
-        }
+    private fun fetchBusTimetable() {
+        showLoadingMessage("Downloading bus timetable")
 
         if (!newBusVersionAvailable) {
-            prefs.edit()
-                .putBoolean(BUS_DATA_EXISTS, true)
-                .apply()
+            context.setBusDataExists(true)
             redirectIfDone()
             return
         }
@@ -210,6 +219,7 @@ class ZatonFetcher(private val context: Context) {
 
             override fun onFailure(call: Call<List<ApiBusTimetableItem>>, t: Throwable) {
                 Log.d(javaClass.name, t.message, t)
+                showErrorMessage()
             }
         })
     }
@@ -227,22 +237,59 @@ class ZatonFetcher(private val context: Context) {
                 }
                 context.contentResolver.insert(BUS_PROVIDER_URI, values)
             }
-            prefs
-                .edit()
-                .putBoolean(BUS_DATA_EXISTS, true)
-                .apply()
-
+            showLoadingMessage("Finishing up")
+            context.setBusDataExists(true)
             redirectIfDone()
         }
     }
 
 
+    //------------------   OTHER   --------------------------
+
     private fun redirectIfDone() {
-        if (prefs.getBoolean(POI_DATA_EXISTS, false) &&
-            prefs.getBoolean(BUS_DATA_EXISTS, false)
-        ) {
+        if(noInternet){
+            return
+        }
+        if (context.getPoiDataExists() && context.getBusDataExists()) {
+            showLoadingMessage("Finishing up")
+            context.setPoiDataVersion(poiApiVersion)
+            context.setBusDataVersion(busApiVersion)
             context.sendBroadcast(Intent(context, ZatonReceiver::class.java))
+
         }
     }
 
+    private fun showLoadingMessage(message: String) {
+        Handler(Looper.getMainLooper()).post {
+            SplashScreenActivity.binding.tvLoadingMessage.setText(message)
+        }
+    }
+
+    private fun showErrorMessage() {
+        if (noInternet){
+            return
+        }
+        Handler(Looper.getMainLooper()).post {
+            AlertDialog.Builder(SplashScreenActivity.binding.loadingSection.context).apply {
+                setTitle(R.string.error)
+                setMessage(R.string.downloadErrorMessage)
+                setCancelable(false)
+                setPositiveButton(R.string.exit) { _, _ -> exitProcess(0) }
+                show()
+            }
+        }
+    }
+
+    private fun showNoInternetMessage() {
+        noInternet = true
+        Handler(Looper.getMainLooper()).post {
+            AlertDialog.Builder(SplashScreenActivity.binding.loadingSection.context).apply {
+                setTitle(R.string.no_internet)
+                setMessage(R.string.internetLost)
+                setCancelable(false)
+                setPositiveButton(R.string.exit) { _, _ -> exitProcess(0) }
+                show()
+            }
+        }
+    }
 }

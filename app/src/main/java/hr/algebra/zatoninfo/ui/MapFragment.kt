@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.navigation.Navigation
-import androidx.preference.PreferenceManager
 import com.google.android.gms.maps.CameraUpdateFactory
 
 import com.google.android.gms.maps.GoogleMap
@@ -23,6 +22,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import hr.algebra.zatoninfo.R
 import hr.algebra.zatoninfo.databinding.FragmentMapBinding
+import hr.algebra.zatoninfo.framework.PRESERVE_FILTER_STATUS
 import hr.algebra.zatoninfo.framework.fetchPoisWithoutActivities
 import hr.algebra.zatoninfo.framework.getPreferences
 import hr.algebra.zatoninfo.framework.showErrorIfGpsDisabled

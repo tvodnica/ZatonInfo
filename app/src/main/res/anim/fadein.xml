@@ -4,7 +4,7 @@
 
     <!-- duration is the time for which animation will work-->
     <alpha
-        android:startOffset="1500"
+        android:startOffset="500"
         android:duration="1000"
         android:fromAlpha="0"
         android:toAlpha="1" />
